@@ -16,7 +16,7 @@
 
 // export default Navbar;
 
-import { BookOpen, Briefcase, Info, LogIn, Menu, Users, X } from "lucide-react";
+import { BookOpen, Briefcase, Info, LogIn, LucideHome, Menu, Users, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,10 +24,11 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
+    { name: "Home", icon: <LucideHome size={20} />, href: "/" },
     { name: "About", icon: <Info size={20} />, href: "/about" },
-    { name: "Students", icon: <Users size={20} />, href: "/students" },
-    { name: "Internships", icon: <Briefcase size={20} />, href: "/internships" },
-    { name: "Resources", icon: <BookOpen size={20} />, href: "/resources" },
+    // { name: "Students", icon: <Users size={20} />, href: "/students" },
+    // { name: "Internships", icon: <Briefcase size={20} />, href: "/internships" },
+    // { name: "Resources", icon: <BookOpen size={20} />, href: "/resources" },
   ];
 
   return (

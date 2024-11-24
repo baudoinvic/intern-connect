@@ -96,7 +96,9 @@ function LoginPage() {
         navigate("/student-dashboard");
       } else if (username === "coordinator" && password === "coordinator") {
         navigate("/coordinator-dashboard");
-      } else {
+      } else if(username === "company" && password === "company"){
+        navigate("/company-dashboard");
+      }else {
         setError("Invalid credentials. Please try again.");
       }
       setIsLoading(false);

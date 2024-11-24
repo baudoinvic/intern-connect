@@ -33,17 +33,18 @@ import InstitutionsPage from "./components/Admin/InstitutionsPage";
 import InternshipListing from "./components/Admin/InternshipListing";
 import UsersPage from "./components/Admin/UsersPage";
 import CoordinatorDashboard from "./components/Coordinator/CoordinatorDashboard";
+import Students from "./components/Coordinator/Students";
+import InternshipOpportunitiesPage from "./components/Coordinator/opportunities";
 import HeroSection from "./components/HeroSection/HeroSection";
+import CompaniesDashboard from "./components/Institutions/CompaniesDashboard";
 import LoginPage from "./components/Login/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import SignupPage from "./components/Signup/SignupPage";
+import Applications from "./components/Student/Applications";
 import CurrentInternship from "./components/Student/CurrentInternship";
 import Listings from "./components/Student/Listings";
 import StudentDashboard from "./components/Student/StudentDashboard";
-import Applications from "./components/Student/Applications";
-import Students from "./components/Coordinator/Students";
-import InternshipOpportunitiesPage from "./components/Coordinator/opportunities";
-import CompaniesDashboard from "./components/Institutions/CompaniesDashboard";
+import AboutPage from "./components/HeroSection/About";
 
 // Layout for pages that should show the main navbar
 const MainLayout = ({ children }) => {
@@ -85,6 +86,14 @@ function App() {
             </MainLayout>
           }
         />
+        <Route
+          path="/about"
+          element={
+            <MainLayout>
+              <AboutPage />
+            </MainLayout>
+          }
+        />
 
         <Route
           path="/signup"
@@ -109,6 +118,14 @@ function App() {
           element={
             <DashboardLayout>
               <StudentDashboard />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/company-dashboard"
+          element={
+            <DashboardLayout>
+              <CompaniesDashboard />
             </DashboardLayout>
           }
         />
