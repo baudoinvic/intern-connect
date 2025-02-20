@@ -25,6 +25,7 @@ import AboutPage from "./components/HeroSection/About";
 import RevenueChart from "./components/Admin/Chart";
 // import Company from "./components/Company/Comapny";
 import Interns from "./components/Company/Interns";
+import Dash from "./components/Company/Dash";
 
 function App() {
   return (
@@ -88,9 +89,10 @@ function App() {
         <Route path="/student/applications" element={<Applications />} />
 
         {/*Company (Without Navbar) */}
-{/* 
+        {/* 
         <Route path="/companie" element={<Company />} /> */}
         <Route path="company/interns" element={<Interns />} />
+        <Route path="company/Dash" element={<Dash />} />
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
