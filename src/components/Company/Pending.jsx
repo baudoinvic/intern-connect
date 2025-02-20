@@ -33,11 +33,7 @@ const Application = () => {
       icon: <Users size={20} />,
       path: "/company/pending",
     },
-    {
-      name: "Account Settings",
-      icon: <Settings size={20} />,
-      path: "/companies/settings",
-    },
+   
   ];
 
   const handleLogout = () => {

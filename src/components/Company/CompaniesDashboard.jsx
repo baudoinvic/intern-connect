@@ -37,11 +37,7 @@ function CompaniesDashboard() {
       icon: <Users size={20} />,
       path: "/companies/approvals",
     },
-    {
-      name: "Account Settings",
-      icon: <Settings size={20} />,
-      path: "/companies/settings",
-    },
+    
   ];
 
   const handleLogout = () => {

@@ -36,11 +36,7 @@ function Dash() {
       icon: <Users size={20} />,
       path: "/pending/approvals",
     },
-    {
-      name: "Account Settings",
-      icon: <Settings size={20} />,
-      path: "/companies/settings",
-    },
+   
   ];
 
   const handleLogout = () => {
