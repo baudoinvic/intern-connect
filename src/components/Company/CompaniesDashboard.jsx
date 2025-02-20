@@ -75,15 +75,7 @@ function CompaniesDashboard() {
           ))}
         </nav>
 
-        <div className="absolute bottom-4 left-4">
-          <button
-            onClick={handleLogout}
-            className="flex items-center px-4 py-2 text-red-600 hover:bg-gray-200 w-full"
-          >
-            <LogOut size={20} />
-            <span className="ml-3">Logout</span>
-          </button>
-        </div>
+       
       </div>
 
       {/* Main Content */}
