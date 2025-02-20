@@ -22,12 +22,12 @@ function CompaniesDashboard() {
     {
       name: "Dashboard",
       icon: <Home size={20} />,
-      path: "/companies/dashboard",
+      path: "/company/dashboard",
     },
     {
       name: "Internship Listings",
       icon: <List size={20} />,
-      path: "/companies/interns",
+      path: "/company/interns",
     },
     {
       name: "Applications Received",

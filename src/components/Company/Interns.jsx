@@ -17,6 +17,9 @@ import {
   ChevronRight,
   CreditCard,
   FileText,
+  Home,
+  List,
+  Settings,
   LogOut,
   Menu,
   Users,
@@ -33,26 +36,33 @@ function Interns() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const menuItems = [
-    {
-      name: "Dashboard",
-      icon: <LayoutDashboard size={20} />,
-      path: "/admin-dashboard",
-    },
-    { name: "Users", icon: <Users size={20} />, path: "/admin/users" },
-    {
-      name: "Institutions",
-      icon: <Building2 size={20} />,
-      path: "/admin/institutions",
-    },
-
-    { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
-    {
-      name: "Subscriptions",
-      icon: <CreditCard size={20} />,
-      path: "/admin/subscriptions",
-    },
-  ];
+   const menuItems = [
+     {
+       name: "Dashboard",
+       icon: <Home size={20} />,
+       path: "/company/dashboard",
+     },
+     {
+       name: "Internship Listings",
+       icon: <List size={20} />,
+       path: "/company/interns",
+     },
+     {
+       name: "Applications Received",
+       icon: <FileText size={20} />,
+       path: "/companies/applications",
+     },
+     {
+       name: "Pending Approvals",
+       icon: <Users size={20} />,
+       path: "/companies/approvals",
+     },
+     {
+       name: "Account Settings",
+       icon: <Settings size={20} />,
+       path: "/companies/settings",
+     },
+   ];
 
   const handleLogout = () => {
     navigate("/");
@@ -98,15 +108,7 @@ function Interns() {
             w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out
           `}
       >
-        <div className="flex items-center justify-between h-16 border-b px-6">
-          <h1 className="text-xl font-bold text-gray-800">Admin Portal</h1>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden"
-          >
-            <X size={20} />
-          </button>
-        </div>
+       
         <nav className="mt-6">
           {menuItems.map((item, index) => (
             <Link

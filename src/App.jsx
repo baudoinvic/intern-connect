@@ -90,7 +90,7 @@ function App() {
         {/*Company (Without Navbar) */}
 {/* 
         <Route path="/companie" element={<Company />} /> */}
-        <Route path="/interns" element={<Interns />} />
+        <Route path="company/interns" element={<Interns />} />
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
