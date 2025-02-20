@@ -1,157 +1,238 @@
+
+
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, Menu, X, Home, List, FileText, Users, Settings } from "lucide-react";
-import { Pie } from "react-chartjs-2";
 import {
-  Chart as ChartJS,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js';
-
-// Register Chart.js components
-ChartJS.register(ArcElement, Title, Tooltip, Legend);
+  LogOut,
+  Menu,
+  X,
+  Home,
+  List,
+  FileText,
+  Users,
+  Settings,
+} from "lucide-react";
 
 function CompaniesDashboard() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { name: "Dashboard", icon: <Home size={20} />, path: "/companies/dashboard" },
-    { name: "Internship Listings", icon: <List size={20} />, path: "/companies/listings" },
-    { name: "Applications Received", icon: <FileText size={20} />, path: "/companies/applications" },
-    { name: "Pending Approvals", icon: <Users size={20} />, path: "/companies/approvals" },
-    { name: "Account Settings", icon: <Settings size={20} />, path: "/companies/settings" },
+    {
+      name: "Dashboard",
+      icon: <Home size={20} />,
+      path: "/companies/dashboard",
+    },
+    {
+      name: "Internship Listings",
+      icon: <List size={20} />,
+      path: "/companies/listings",
+    },
+    {
+      name: "Applications Received",
+      icon: <FileText size={20} />,
+      path: "/companies/applications",
+    },
+    {
+      name: "Pending Approvals",
+      icon: <Users size={20} />,
+      path: "/companies/approvals",
+    },
+    {
+      name: "Account Settings",
+      icon: <Settings size={20} />,
+      path: "/companies/settings",
+    },
   ];
 
   const handleLogout = () => {
     navigate("/");
   };
 
-  // Pie chart data (for performance or application statistics)
-  const pieData = {
-    labels: ["Accepted", "Pending", "Rejected"],
-    datasets: [
-      {
-        data: [70, 20, 10], // Example percentages
-        backgroundColor: ["#4CAF50", "#FFEB3B", "#FF5722"],
-        borderWidth: 1,
-      },
-    ],
-  };
-
   return (
-    <div className="flex h-screen bg-gray-100 overflow-hidden">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Mobile Header */}
-      <div className="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm flex items-center justify-between px-4 lg:hidden z-30">
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="text-xl font-bold text-gray-800">Companies Dashboard</h1>
-        <div className="w-8" /> {/* Placeholder for balance */}
-      </div>
-
+    <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}>
-        <div className="flex items-center justify-between h-16 border-b px-6">
-          <h1 className="text-xl font-bold text-gray-800">Companies Portal</h1>
-          <button onClick={() => setSidebarOpen(false)} className="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden">
-            <X size={20} />
+      <div
+        className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 ease-in-out md:relative md:translate-x-0`}
+      >
+        <div className="flex items-center justify-between p-4 border-b">
+          <h2 className="text-lg font-semibold">Company Panel</h2>
+          <button
+            className="md:hidden text-gray-600 hover:text-gray-800"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <X size={24} />
           </button>
         </div>
-        <nav className="mt-6">
+
+        <nav className="mt-4">
           {menuItems.map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              className="flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
-              onClick={() => setSidebarOpen(false)}
+              className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200"
             >
-              <div className="flex items-center">
-                <span className="text-gray-500">{item.icon}</span>
-                <span className="ml-3">{item.name}</span>
-              </div>
+              {item.icon}
+              <span className="ml-3">{item.name}</span>
             </Link>
           ))}
-          <button onClick={handleLogout} className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200">
+        </nav>
+
+        <div className="absolute bottom-4 left-4">
+          <button
+            onClick={handleLogout}
+            className="flex items-center px-4 py-2 text-red-600 hover:bg-gray-200 w-full"
+          >
             <LogOut size={20} />
             <span className="ml-3">Logout</span>
           </button>
-        </nav>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto pt-16 lg:pt-0">
-        <div className="p-4 md:p-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Companies Dashboard Overview</h2>
+      <div className="flex-1 overflow-y-auto">
+        {/* Header */}
+        <header className="bg-white shadow-sm">
+          <div className="px-6 py-4 flex justify-between items-center">
+            {/* Sidebar Toggle Button */}
+            <button
+              className="md:hidden text-gray-600 hover:text-gray-800"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
 
-          {/* Pie Chart */}
-          <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Applications Status</h3>
-            <div className="h-48 w-48 mx-auto">
-              <Pie data={pieData} />
+            <h1 className="text-2xl font-semibold text-gray-800">
+              Company Dashboard
+            </h1>
+
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+              Post New Internship
+            </button>
+          </div>
+        </header>
+
+        {/* Main Dashboard Content */}
+        <main className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="bg-white rounded-lg shadow p-6">
+              <p className="text-sm font-medium text-gray-500">
+                Active Internships
+              </p>
+              <p className="text-2xl font-semibold text-gray-800">2</p>
+            </div>
+            <div className="bg-white rounded-lg shadow p-6">
+              <p className="text-sm font-medium text-gray-500">
+                Total Applicants
+              </p>
+              <p className="text-2xl font-semibold text-gray-800">25</p>
+            </div>
+            <div className="bg-white rounded-lg shadow p-6">
+              <p className="text-sm font-medium text-gray-500">
+                Current Interns
+              </p>
+              <p className="text-2xl font-semibold text-gray-800">5</p>
             </div>
           </div>
 
-          {/* Company Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
-            <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="p-4 md:p-6">
-                <h4 className="text-lg font-medium text-gray-800">Total Internships Posted</h4>
-                <p className="text-xl font-semibold text-gray-800">15</p>
-              </div>
+          {/* Active Internships */}
+          <div className="bg-white rounded-lg shadow mb-6">
+            <div className="px-6 py-4 border-b">
+              <h2 className="text-lg font-medium text-gray-800">
+                Active Internships
+              </h2>
             </div>
-            <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="p-4 md:p-6">
-                <h4 className="text-lg font-medium text-gray-800">Applications Received</h4>
-                <p className="text-xl font-semibold text-gray-800">50</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-              <div className="p-4 md:p-6">
-                <h4 className="text-lg font-medium text-gray-800">Interns Accepted</h4>
-                <p className="text-xl font-semibold text-gray-800">40</p>
-              </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Applications
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Deadline
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                      Frontend Developer
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      12
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                        Active
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      Nov 30, 2024
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                      Backend Developer
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      8
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">
+                        Pending
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      Dec 15, 2024
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                      UI/UX Designer
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      15
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                        In Review
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      Dec 5, 2024
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                      Full Stack Developer
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      20
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                        Active
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      Dec 25, 2024
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-
-          {/* Pending Approvals Section */}
-          <div className="bg-white rounded-lg shadow-md mb-6">
-            <div className="p-4 md:p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Pending Approvals</h3>
-              <div className="space-y-4">
-                {/* Dummy data for pending approvals */}
-                <div className="flex items-center justify-between py-4 border-b last:border-b-0">
-                  <div className="flex items-center">
-                    <span className="font-medium text-gray-800">John Doe</span>
-                    <span className="ml-2 text-gray-500">for Web Developer at TechCorp</span>
-                  </div>
-                  <span className="font-semibold text-yellow-500">Pending Review</span>
-                </div>
-                <div className="flex items-center justify-between py-4 border-b last:border-b-0">
-                  <div className="flex items-center">
-                    <span className="font-medium text-gray-800">Jane Smith</span>
-                    <span className="ml-2 text-gray-500">for Data Analyst at DataSys</span>
-                  </div>
-                  <span className="font-semibold text-yellow-500">Pending Review</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        </main>
       </div>
     </div>
   );
