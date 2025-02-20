@@ -1,14 +1,4 @@
-// import React from 'react'
 
-// const Comapny = () => {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Comapny
 
 import React, { useState } from "react";
 

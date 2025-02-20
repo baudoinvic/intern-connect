@@ -3,11 +3,11 @@
 import { ArrowRight, Award, BookOpen, Briefcase, Users } from "lucide-react";
 import React from "react";
 import heroImage from "../../assets/images/stud2(1).jpg";
-import company1 from "../../assets/images/stud2(2).jpg";
-import company2 from "../../assets/images/stud2(3).jpg";
-import company3 from "../../assets/images/stud2(4).jpg";
-import company4 from "../../assets/images/stud2(5).jpg";
-import company5 from "../../assets/images/stud2(6).jpg";
+// import company1 from "../../assets/images/stud2(2).jpg";
+// import company2 from "../../assets/images/stud2(3).jpg";
+// import company3 from "../../assets/images/stud2(4).jpg";
+// import company4 from "../../assets/images/stud2(5).jpg";
+// import company5 from "../../assets/images/stud2(6).jpg";
 import { Link } from "react-router-dom";
 
 function HeroSection() {
