@@ -89,13 +89,6 @@ const UsersPage = () => {
               <span>{item.name}</span>
             </Link>
           ))}
-          <button
-            onClick={() => alert("Logged out")}
-            className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
-          >
-            <LogOut size={20} className="mr-3" />
-            <span>Logout</span>
-          </button>
         </nav>
       </div>
 

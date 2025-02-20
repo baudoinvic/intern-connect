@@ -25,7 +25,6 @@ import {
       { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/admin-dashboard" },
       { name: "Users", icon: <Users size={20} />, path: "/admin/users" },
       { name: "Institutions", icon: <Building2 size={20} />, path: "/admin/institutions" },
-     
       { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
       { name: "Subscriptions", icon: <CreditCard size={20} />, path: "/admin/subscriptions" },
     ];
@@ -96,13 +95,7 @@ import {
                 <ChevronRight size={16} className="text-gray-400" />
               </Link>
             ))}
-            <button
-              onClick={handleLogout}
-              className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
-            >
-              <LogOut size={20} />
-              <span className="ml-3">Logout</span>
-            </button>
+          
           </nav>
         </div>
   
