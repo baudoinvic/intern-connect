@@ -46,7 +46,7 @@ import Listings from "./components/Student/Listings";
 import StudentDashboard from "./components/Student/StudentDashboard";
 import AboutPage from "./components/HeroSection/About";
 
-// Layout for pages that should show the main navbar
+
 const MainLayout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
