@@ -34,7 +34,7 @@ function Dash() {
     {
       name: "Pending Approvals",
       icon: <Users size={20} />,
-      path: "/companies/approvals",
+      path: "/pending/approvals",
     },
     {
       name: "Account Settings",

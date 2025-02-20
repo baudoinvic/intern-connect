@@ -43,7 +43,7 @@ function Interns() {
      {
        name: "Pending Approvals",
        icon: <Users size={20} />,
-       path: "/companies/approvals",
+       path: "/company/pending",
      },
      {
        name: "Account Settings",
