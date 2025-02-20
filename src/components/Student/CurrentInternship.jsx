@@ -107,13 +107,7 @@ function CurrentInternship() {
               )}
             </Link>
           ))}
-          <button
-            onClick={handleLogout}
-            className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
-          >
-            <LogOut size={20} />
-            <span className="ml-3">Logout</span>
-          </button>
+        
         </nav>
       </div>
 
