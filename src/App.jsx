@@ -28,7 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Routes with Navbar */}
+      
         <Route
           path="/"
           element={
@@ -74,7 +74,7 @@ function App() {
           path="/coordinator-dashboard"
           element={<CoordinatorDashboard />}
         />
-        <Route path="/companies" element={<CompaniesDashboard />} />
+        <Route path="/company" element={<CompaniesDashboard />} />
 
         {/* Admin Routes (Without Navbar) */}
         <Route path="/admin/users" element={<UsersPage />} />
