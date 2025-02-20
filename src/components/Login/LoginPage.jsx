@@ -33,8 +33,8 @@ function LoginPage() {
         navigate("/student-dashboard");
       } else if (username === "coordinator" && password === "coordinator") {
         navigate("/coordinator-dashboard");
-      } else if(username === "company" && password === "company"){
-        navigate("/company-dashboard");
+      } else if(username === "companie" && password === "companie"){
+        navigate("/company");
       }else {
         setError("Invalid credentials. Please try again.");
       }

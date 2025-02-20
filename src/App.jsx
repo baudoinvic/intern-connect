@@ -23,12 +23,12 @@ import Listings from "./components/Student/Listings";
 import StudentDashboard from "./components/Student/StudentDashboard";
 import AboutPage from "./components/HeroSection/About";
 import RevenueChart from "./components/Admin/Chart";
+import Company from "./components/Company/Comapny";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-      
         <Route
           path="/"
           element={
@@ -85,6 +85,10 @@ function App() {
         <Route path="/student/listings" element={<Listings />} />
         <Route path="/student/current" element={<CurrentInternship />} />
         <Route path="/student/applications" element={<Applications />} />
+
+        {/*Company (Without Navbar) */}
+
+        <Route path="/companie" element={<Company />} />
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
