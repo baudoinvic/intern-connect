@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// const Interns = () => {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Interns
-
 
 import {
   Briefcase,
@@ -40,7 +28,7 @@ function Interns() {
      {
        name: "Dashboard",
        icon: <Home size={20} />,
-       path: "/company/dashboard",
+       path: "/company/Dash",
      },
      {
        name: "Internship Listings",
