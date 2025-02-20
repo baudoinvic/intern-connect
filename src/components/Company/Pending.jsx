@@ -33,7 +33,6 @@ const Application = () => {
       icon: <Users size={20} />,
       path: "/company/pending",
     },
-   
   ];
 
   const handleLogout = () => {
@@ -68,9 +67,9 @@ const Application = () => {
       <div
         className={`fixed inset-y-0 left-0 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
+        } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out flex flex-col`}
       >
-        <nav className="mt-6">
+        <nav className="mt-6 flex flex-col flex-grow">
           {menuItems.map((item, index) => (
             <Link
               key={index}
@@ -85,14 +84,16 @@ const Application = () => {
               <ChevronRight size={16} className="text-gray-400" />
             </Link>
           ))}
-          <button
-            onClick={handleLogout}
-            className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
-          >
-            <LogOut size={20} />
-            <span className="ml-3">Logout</span>
-          </button>
         </nav>
+
+        {/* Logout Button at the Bottom */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center w-full px-6 py-3 mt-auto text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
+        >
+          <LogOut size={20} />
+          <span className="ml-3">Logout</span>
+        </button>
       </div>
 
       {/* Main Content */}

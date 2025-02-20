@@ -92,13 +92,12 @@ function Interns() {
             w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out
           `}
       >
-       
         <nav className="mt-6">
           {menuItems.map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              className="flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+              className="flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 "
               onClick={() => setSidebarOpen(false)}
             >
               <div className="flex items-center">
@@ -110,7 +109,7 @@ function Interns() {
           ))}
           <button
             onClick={handleLogout}
-            className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
+            className="flex items-center w-full px-6 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 "
           >
             <LogOut size={20} />
             <span className="ml-3">Logout</span>
