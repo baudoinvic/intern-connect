@@ -11,8 +11,9 @@ import {
   Menu,
   Star,
   Users,
+  LayoutDashboard,
   X,
-  XCircle
+  XCircle,
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,10 +23,32 @@ function CoordinatorDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { name: "Students", icon: <Users size={20} />, path: "/coordinator/students" },
-    { name: "Internship Opportunities", icon: <Briefcase size={20} />, path: "/coordinator/opportunities" },
-    { name: "Reports", icon: <FileText size={20} />, path: "/coordinator/reports" },
-    { name: "Notifications", icon: <Bell size={20} />, path: "/coordinator/notifications", badge: 5 },
+    {
+      name: "Dashboard",
+      icon: <LayoutDashboard size={20} />,
+      path: "/coordinator-dashboard",
+    },
+    {
+      name: "Students",
+      icon: <Users size={20} />,
+      path: "/coordinator/students",
+    },
+    {
+      name: "Internship Opportunities",
+      icon: <Briefcase size={20} />,
+      path: "/coordinator/opportunities",
+    },
+    {
+      name: "Reports",
+      icon: <FileText size={20} />,
+      path: "/coordinator/reports",
+    },
+    {
+      name: "Notifications",
+      icon: <Bell size={20} />,
+      path: "/coordinator/notifications",
+      badge: 5,
+    },
   ];
 
   const internshipStatusData = [
@@ -53,13 +76,7 @@ function CoordinatorDashboard() {
   ];
 
   const pendingApprovals = [
-    {
-      studentName: "Sarah Johnson",
-      company: "TechCorp",
-      position: "Frontend Developer",
-      status: "Pending Review",
-      date: "2024-03-15"
-    },
+  
     {
       studentName: "Michael Smith",
       company: "DataSys Inc",
@@ -77,12 +94,7 @@ function CoordinatorDashboard() {
   ];
 
   const topPerformers = [
-    {
-      name: "John Davis",
-      company: "TechCorp",
-      rating: 4.9,
-      feedback: "Exceptional problem-solving skills"
-    },
+   
     {
       name: "Lisa Wang",
       company: "InnovateHub",
@@ -282,35 +294,7 @@ function CoordinatorDashboard() {
             </div>
           </div>
 
-          {/* Performance Trends */}
-          <div className="bg-white rounded-lg shadow-md">
-            <div className="p-4 md:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  Overall Performance Metrics
-                </h3>
-                <select className="text-sm border rounded-md p-2">
-                  <option>This Month</option>
-                  <option>Last 3 Months</option>
-                  <option>This Year</option>
-                </select>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <p className="text-green-600 font-bold text-2xl">92%</p>
-                  <p className="text-sm text-gray-600">Placement Rate</p>
-                </div>
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <p className="text-blue-600 font-bold text-2xl">4.7</p>
-                  <p className="text-sm text-gray-600">Avg. Performance</p>
-                </div>
-                <div className="p-4 bg-purple-50 rounded-lg">
-                  <p className="text-purple-600 font-bold text-2xl">87%</p>
-                  <p className="text-sm text-gray-600">Retention Rate</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>

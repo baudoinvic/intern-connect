@@ -179,7 +179,7 @@ function StudentDashboard() {
       <div className="flex-1 overflow-auto">
         <div className="p-4 md:p-8">
           <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
-            Your Dashboard
+            Student Dashboard
           </h2>
 
           {/* Stats Grid */}

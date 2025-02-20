@@ -1,11 +1,9 @@
 
-
 import {
   Building2,
   ChevronRight,
   FileText,
   LayoutDashboard,
-  LogOut,
   Menu,
   Plus,
   Search,
@@ -55,32 +53,11 @@ const menuItems = [
   { name: "Subscriptions", icon: <Building2 size={20} />, path: "/admin/subscriptions" },
 ];
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setFormData(prev => ({
-    ...prev,
-    [name]: value
-  }));
-};
-
 const handleSubmit = (e) => {
-  e.preventDefault();
-  // Handle form submission logic here
-  console.log('Form submitted:', formData);
+ 
   setIsModalOpen(false);
-  // Reset form
-  setFormData({
-    name: '',
-    type: 'University',
-    location: '',
-    students: '',
-    status: 'Active'
-  });
 };
 
-const handleLogout = () => {
-  // Handle logout logic
-};
 
 return (
   <div className="flex h-screen bg-gray-100 overflow-hidden">
@@ -148,16 +125,7 @@ return (
           </button>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
-          <div className="relative w-full sm:w-72">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
-            <input 
-              type="text" 
-              placeholder="Search institutions..." 
-              className="pl-8 w-full p-2 rounded-md border border-gray-300" 
-            />
-          </div>
-        </div>
+     
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {institutions.map((institution) => (

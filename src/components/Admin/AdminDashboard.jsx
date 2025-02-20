@@ -10,6 +10,7 @@ import {
   LogOut,
   Menu,
   Users,
+  LayoutDashboard,
   X,
 } from "lucide-react";
 import RevenueChart from "./Chart";
@@ -21,7 +22,7 @@ function AdminDashboard() {
   const [activePage, setActivePage] = useState(location.pathname); // Track active page
 
   const menuItems = [
-    { name: "Dashboard", path: "/admin/dashboard" },
+    { name: "Dashboard",icon: <LayoutDashboard size={20} />, path: "/admin/dashboard" },
     { name: "Users", icon: <Users size={20} />, path: "/admin/users" },
     {
       name: "Institutions",

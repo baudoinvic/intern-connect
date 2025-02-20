@@ -1,20 +1,4 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
 
-// function Navbar() {
-//   return (
-//     <nav className="flex justify-between items-center py-4 px-8 bg-white shadow-md">
-//       <div className="text-2xl font-bold text-blue-600">Campus Connect</div>
-//       <Link to="/login">
-//         <button className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">
-//           Login
-//         </button>
-//       </Link>
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
 
 import { BookOpen, Briefcase, Info, LogIn, LucideHome, Menu, Users, X } from "lucide-react";
 import React, { useState } from "react";
@@ -26,9 +10,6 @@ function Navbar() {
   const navLinks = [
     { name: "Home", icon: <LucideHome size={20} />, href: "/" },
     { name: "About", icon: <Info size={20} />, href: "/about" },
-    // { name: "Students", icon: <Users size={20} />, href: "/students" },
-    // { name: "Internships", icon: <Briefcase size={20} />, href: "/internships" },
-    // { name: "Resources", icon: <BookOpen size={20} />, href: "/resources" },
   ];
 
   return (

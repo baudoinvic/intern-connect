@@ -16,14 +16,12 @@ function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
   });
 
   const handleChange = (e) => {
@@ -45,13 +43,11 @@ function SignupPage() {
     }
     
     setIsLoading(true);
-    
     // Simulate API call
     setTimeout(() => {
-      // Here you would typically make an API call to register the user
       console.log('Registration data:', formData);
       setIsLoading(false);
-      navigate('/login'); // Redirect to login after successful registration
+      navigate('/login'); 
     }, 1000);
   };
 
@@ -74,9 +70,7 @@ function SignupPage() {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Create your account
         </h2>
-        {/* <p className="mt-2 text-center text-sm text-gray-600">
-          Sign up with your email to get started
-        </p> */}
+    
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -179,36 +173,6 @@ function SignupPage() {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Confirm Password
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                >
-                  {showConfirmPassword ? (
                     <EyeOff className="h-5 w-5 text-gray-400" />
                   ) : (
                     <Eye className="h-5 w-5 text-gray-400" />

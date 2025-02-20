@@ -3,22 +3,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowUpDown,
-  Download,
-  Filter,
   Plus,
-  Search,
   Edit,
   Trash,
   Menu,
   X,
-  ChevronRight,
   LayoutDashboard,
   Building2,
   Briefcase,
   FileText,
   CreditCard,
-  LogOut,
 } from "lucide-react";
 
 const UsersPage = () => {
@@ -96,13 +90,15 @@ const UsersPage = () => {
       <div className="flex-1 p-4 md:p-8 space-y-6 pt-16 lg:pt-0">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
           <h1 className="text-2xl font-bold">Users</h1>
-          <button
-            onClick={openModal}
-            className="w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded flex items-center mt-4 sm:mt-0"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add New User
-          </button>
+          <Link to="/Adduser">
+            <button
+              onClick={openModal}
+              className="w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded flex items-center mt-4 sm:mt-0"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add New User
+            </button>
+          </Link>
         </div>
 
         <div className="bg-white rounded shadow p-4 overflow-x-auto">
@@ -111,16 +107,16 @@ const UsersPage = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
+                    Firstname
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Lastname
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Email
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Role
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Joined
@@ -133,21 +129,29 @@ const UsersPage = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {users.map((user) => (
                   <tr key={user.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{user.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{user.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{user.role}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                      {user.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {user.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {user.role}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       <span
                         className={`px-2 py-1 rounded-full text-xs ${
-                          user.status === "Active" 
-                            ? "bg-green-100 text-green-700" 
+                          user.status === "Active"
+                            ? "bg-green-100 text-green-700"
                             : "bg-gray-100 text-gray-700"
                         }`}
                       >
                         {user.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{user.joined}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                      {user.joined}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
                       <button className="text-blue-600 hover:text-blue-800">
                         <Edit size={18} />
@@ -165,52 +169,9 @@ const UsersPage = () => {
       </div>
 
       {/* Add New User Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40">
-          <div className="bg-white rounded shadow-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Add New User</h2>
-            <form>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">Name</label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2 focus:outline-none"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  className="w-full border rounded px-3 py-2 focus:outline-none"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">Role</label>
-                <select className="w-full border rounded px-3 py-2 focus:outline-none">
-                  <option>Student</option>
-                  <option>Employer</option>
-                  <option>Admin</option>
-                </select>
-              </div>
-              <div className="flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* {isModalOpen && (
+      
+      )} */}
     </div>
   );
 };

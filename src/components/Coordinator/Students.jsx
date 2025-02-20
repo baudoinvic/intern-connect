@@ -2,17 +2,49 @@
 
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronRight, LogOut, Menu, X, Users, Briefcase, Bell, FileText } from "lucide-react";
+import {
+  ChevronRight,
+  LogOut,
+  Menu,
+  X,
+  Users,
+  Briefcase,
+  Bell,
+  FileText,
+  LayoutDashboard,
+} from "lucide-react";
 
 function StudentsPage() {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { name: "Students", icon: <Users size={20} />, path: "/coordinator/students" },
-    { name: "Internship Opportunities", icon: <Briefcase size={20} />, path: "/coordinator/opportunities" },
-    { name: "Reports", icon: <FileText size={20} />, path: "/coordinator/reports" },
-    { name: "Notifications", icon: <Bell size={20} />, path: "/coordinator/notifications", badge: 5 },
+    {
+      name: "Dashboard",
+      icon: <LayoutDashboard size={20} />,
+      path: "/coordinator-dashboard",
+    },
+    {
+      name: "Students",
+      icon: <Users size={20} />,
+      path: "/coordinator/students",
+    },
+    {
+      name: "Internship Opportunities",
+      icon: <Briefcase size={20} />,
+      path: "/coordinator/opportunities",
+    },
+    {
+      name: "Reports",
+      icon: <FileText size={20} />,
+      path: "/coordinator/reports",
+    },
+    {
+      name: "Notifications",
+      icon: <Bell size={20} />,
+      path: "/coordinator/notifications",
+      badge: 5,
+    },
   ];
 
   const studentData = [
