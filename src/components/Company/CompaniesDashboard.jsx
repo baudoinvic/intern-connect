@@ -30,7 +30,7 @@ function CompaniesDashboard() {
     {
       name: "Applications Received",
       icon: <FileText size={20} />,
-      path: "/companies/applications",
+      path: "/company/application",
     },
     {
       name: "Pending Approvals",
