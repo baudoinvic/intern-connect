@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import RevenueChart from "./Chart";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ function AdminDashboard() {
     <div className="flex h-screen bg-gray-100 overflow-hidden">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
@@ -60,11 +61,15 @@ function AdminDashboard() {
       </div>
 
       {/* Sidebar */}
-      <div className={`
-        fixed inset-y-0 left-0 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      <div
+        className={`
+        fixed inset-y-0 left-0 transform ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }
         lg:relative lg:translate-x-0
         w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out
-      `}>
+      `}
+      >
         <div className="flex items-center justify-between h-16 border-b px-6">
           <h1 className="text-xl font-bold text-gray-800">Admin Portal</h1>
           <button
@@ -102,8 +107,9 @@ function AdminDashboard() {
       {/* Main Content */}
       <div className="flex-1 overflow-auto pt-16 lg:pt-0">
         <div className="p-4 md:p-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Dashboard Overview</h2>
-          
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Dashboard Overview
+          </h2>
           {/* Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
             {statsCards.map((card, index) => (
@@ -112,11 +118,17 @@ function AdminDashboard() {
                   <div className="p-4 md:p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                        <p className="text-2xl font-bold text-gray-900 mt-2">{card.count}</p>
+                        <p className="text-sm font-medium text-gray-600">
+                          {card.title}
+                        </p>
+                        <p className="text-2xl font-bold text-gray-900 mt-2">
+                          {card.count}
+                        </p>
                       </div>
-                      <div className={`p-3 rounded-full ${card.color} bg-opacity-10`}>
-                        <div className={`text-${card.color.split('-')[1]}-500`}>
+                      <div
+                        className={`p-3 rounded-full ${card.color} bg-opacity-10`}
+                      >
+                        <div className={`text-${card.color.split("-")[1]}-500`}>
                           {card.icon}
                         </div>
                       </div>
@@ -126,9 +138,8 @@ function AdminDashboard() {
               </Link>
             ))}
           </div>
-
           {/* Recent Activity Section */}
-       
+       <RevenueChart />
         </div>
       </div>
     </div>

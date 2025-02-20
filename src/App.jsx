@@ -215,6 +215,8 @@ import CurrentInternship from "./components/Student/CurrentInternship";
 import Listings from "./components/Student/Listings";
 import StudentDashboard from "./components/Student/StudentDashboard";
 import AboutPage from "./components/HeroSection/About";
+import RevenueChart from "./components/Admin/Chart";
+
 
 function App() {
   return (
@@ -230,6 +232,7 @@ function App() {
         {/* Dashboard Routes */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/RevenueChart" element={<RevenueChart />} />
         <Route
           path="/coordinator-dashboard"
           element={<CoordinatorDashboard />}
