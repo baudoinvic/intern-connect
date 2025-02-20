@@ -27,7 +27,7 @@ function CompaniesDashboard() {
     {
       name: "Internship Listings",
       icon: <List size={20} />,
-      path: "/companies/listings",
+      path: "/companies/interns",
     },
     {
       name: "Applications Received",

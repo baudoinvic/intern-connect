@@ -13,7 +13,7 @@ import CoordinatorDashboard from "./components/Coordinator/CoordinatorDashboard"
 import Students from "./components/Coordinator/Students";
 import InternshipOpportunitiesPage from "./components/Coordinator/opportunities";
 import HeroSection from "./components/HeroSection/HeroSection";
-import CompaniesDashboard from "./components/Institutions/CompaniesDashboard";
+import CompaniesDashboard from "./components/Company/CompaniesDashboard";
 import LoginPage from "./components/Login/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import SignupPage from "./components/Signup/SignupPage";
@@ -23,7 +23,8 @@ import Listings from "./components/Student/Listings";
 import StudentDashboard from "./components/Student/StudentDashboard";
 import AboutPage from "./components/HeroSection/About";
 import RevenueChart from "./components/Admin/Chart";
-import Company from "./components/Company/Comapny";
+// import Company from "./components/Company/Comapny";
+import Interns from "./components/Company/Interns";
 
 function App() {
   return (
@@ -87,8 +88,9 @@ function App() {
         <Route path="/student/applications" element={<Applications />} />
 
         {/*Company (Without Navbar) */}
-
-        <Route path="/companie" element={<Company />} />
+{/* 
+        <Route path="/companie" element={<Company />} /> */}
+        <Route path="/interns" element={<Interns />} />
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
