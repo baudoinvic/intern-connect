@@ -34,7 +34,7 @@ function LoginPage() {
       } else if (username === "coordinator" && password === "coordinator") {
         navigate("/coordinator-dashboard");
       } else if(username === "company" && password === "company"){
-        navigate("/CompaniesDashboard");
+        navigate("/company-dashboard");
       }else {
         setError("Invalid credentials. Please try again.");
       }
