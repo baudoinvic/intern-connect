@@ -32,7 +32,6 @@ const UsersPage = () => {
     { name: "Institutions", icon: <Building2 size={20} />, path: "/admin/institutions" },
     { name: "Internship Listing", icon: <Briefcase size={20} />, path: "/admin/internships" },
     { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
-    { name: "Subscriptions", icon: <CreditCard size={20} />, path: "/admin/subscriptions" },
   ];
 
   return (

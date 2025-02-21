@@ -34,15 +34,11 @@ function StudentsPage() {
       icon: <Briefcase size={20} />,
       path: "/coordinator/opportunities",
     },
-    {
-      name: "Reports",
-      icon: <FileText size={20} />,
-      path: "/coordinator/reports",
-    },
+  
     {
       name: "Notifications",
       icon: <Bell size={20} />,
-      path: "/coordinator/notifications",
+      path: "",
       badge: 5,
     },
   ];
