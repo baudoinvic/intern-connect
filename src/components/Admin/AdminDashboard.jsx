@@ -35,11 +35,7 @@ function AdminDashboard() {
       path: "/admin/internships",
     },
     { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
-    {
-      name: "Subscriptions",
-      icon: <CreditCard size={20} />,
-      path: "/admin/subscriptions",
-    },
+  
   ];
 
   const statsCards = [

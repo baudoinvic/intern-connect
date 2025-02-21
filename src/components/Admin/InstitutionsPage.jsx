@@ -50,7 +50,6 @@ const menuItems = [
   { name: "Users", icon: <Users size={20} />, path: "/admin/users" },
   { name: "Internship Listing", icon: <Building2 size={20} />, path: "/admin/internships" },
   { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
-  { name: "Subscriptions", icon: <Building2 size={20} />, path: "/admin/subscriptions" },
 ];
 
 const handleSubmit = (e) => {
