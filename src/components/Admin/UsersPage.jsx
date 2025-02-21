@@ -89,15 +89,7 @@ const UsersPage = () => {
       <div className="flex-1 p-4 md:p-8 space-y-6 pt-16 lg:pt-0">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
           <h1 className="text-2xl font-bold">Users</h1>
-          <Link to="/Adduser">
-            <button
-              onClick={openModal}
-              className="w-full sm:w-auto bg-blue-500 text-white px-4 py-2 rounded flex items-center mt-4 sm:mt-0"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add New User
-            </button>
-          </Link>
+         
         </div>
 
         <div className="bg-white rounded shadow p-4 overflow-x-auto">

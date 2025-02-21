@@ -27,7 +27,6 @@ import Interns from "./components/Company/Interns";
 import Dash from "./components/Company/Dash";
 import Application from "./components/Company/Application";
 import Pending from "./components/Company/Pending";
-import Adduser from "./components/Admin/Adduser";
 import Reports from "./components/Admin/Reports";
 import Postnewinternship from "./components/Company/Postnewinternship";
 
@@ -76,7 +75,6 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/RevenueChart" element={<RevenueChart />} />
-        <Route path="/Adduser" element={<Adduser />} />
         <Route path="admin/Reports" element={<Reports />} />
         <Route
           path="/coordinator-dashboard"
