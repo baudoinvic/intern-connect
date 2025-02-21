@@ -29,6 +29,7 @@ import Application from "./components/Company/Application";
 import Pending from "./components/Company/Pending";
 import Reports from "./components/Admin/Reports";
 import Postnewinternship from "./components/Company/Postnewinternship";
+import Create from "./components/Admin/Create";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/RevenueChart" element={<RevenueChart />} />
         <Route path="admin/Reports" element={<Reports />} />
+        <Route path="/create" element={<Create />} />
         <Route
           path="/coordinator-dashboard"
           element={<CoordinatorDashboard />}

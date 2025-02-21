@@ -62,7 +62,7 @@ return (
   <div className="flex h-screen bg-gray-100 overflow-hidden">
     {/* Mobile Sidebar Overlay */}
     {sidebarOpen && (
-      <div 
+      <div
         className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
         onClick={() => setSidebarOpen(false)}
       />
@@ -81,7 +81,11 @@ return (
     </div>
 
     {/* Sidebar */}
-    <div className={`fixed inset-y-0 left-0 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}>
+    <div
+      className={`fixed inset-y-0 left-0 transform ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
+    >
       <div className="flex items-center justify-between h-16 border-b px-6">
         <h1 className="text-xl font-bold text-gray-800">Admin Portal</h1>
         <button
@@ -106,7 +110,6 @@ return (
             <ChevronRight size={16} className="text-gray-400" />
           </Link>
         ))}
-     
       </nav>
     </div>
 
@@ -115,20 +118,23 @@ return (
       <div className="p-4 md:p-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-2xl font-bold">Institutions</h1>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-md flex items-center"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Institution
-          </button>
+          <Link to="/create">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-md flex items-center"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Institution
+            </button>
+          </Link>
         </div>
-
-     
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {institutions.map((institution) => (
-            <div key={institution.id} className="bg-white rounded-lg shadow-md p-4">
+            <div
+              key={institution.id}
+              className="bg-white rounded-lg shadow-md p-4"
+            >
               <h2 className="font-semibold text-lg">{institution.name}</h2>
               <div className="space-y-2 mt-4">
                 <div className="flex items-center text-sm">
@@ -144,7 +150,13 @@ return (
                   {institution.students} Students
                 </div>
                 <div className="flex items-center text-sm mt-4">
-                  <span className={`px-2 py-1 rounded-full text-xs ${institution.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs ${
+                      institution.status === "Active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
                     {institution.status}
                   </span>
                 </div>
@@ -161,14 +173,14 @@ return (
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">Add New Institution</h2>
-            <button 
+            <button
               onClick={() => setIsModalOpen(false)}
               className="text-gray-500 hover:text-gray-700"
             >
               <X size={20} />
             </button>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
