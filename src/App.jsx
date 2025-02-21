@@ -29,6 +29,7 @@ import Application from "./components/Company/Application";
 import Pending from "./components/Company/Pending";
 import Adduser from "./components/Admin/Adduser";
 import Reports from "./components/Admin/Reports";
+import Postnewinternship from "./components/Company/Postnewinternship";
 
 function App() {
   return (
@@ -98,6 +99,7 @@ function App() {
         <Route path="company/Dash" element={<Dash />} />
         <Route path="company/application" element={<Application />} />
         <Route path="company/pending" element={<Pending />} />
+        <Route path="company/intership" element={<Postnewinternship />} />
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
