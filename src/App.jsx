@@ -28,6 +28,7 @@ import Dash from "./components/Company/Dash";
 import Application from "./components/Company/Application";
 import Pending from "./components/Company/Pending";
 import Adduser from "./components/Admin/Adduser";
+import Reports from "./components/Admin/Reports";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/RevenueChart" element={<RevenueChart />} />
         <Route path="/Adduser" element={<Adduser />} />
+        <Route path="admin/Reports" element={<Reports />} />
         <Route
           path="/coordinator-dashboard"
           element={<CoordinatorDashboard />}
