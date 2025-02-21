@@ -74,17 +74,16 @@ function CompaniesDashboard() {
             </Link>
           ))}
         </nav>
- 
-                 <div className="" style={{marginTop: "27rem"}}>
-                   <button
-                     onClick={handleLogout}
-                     className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
-                   >
-                     <LogOut size={20} />
-                     <span className="ml-3">Logout</span>
-                   </button>
-                 </div>
-       
+
+        <div className="" style={{ marginTop: "27rem" }}>
+          <button
+            onClick={handleLogout}
+            className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
+          >
+            <LogOut size={20} />
+            <span className="ml-3">Logout</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -104,9 +103,11 @@ function CompaniesDashboard() {
               Company Dashboard
             </h1>
 
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-              Post New Internship
-            </button>
+            <Link to="/internship">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                Post New Internship
+              </button>
+            </Link>
           </div>
         </header>
 

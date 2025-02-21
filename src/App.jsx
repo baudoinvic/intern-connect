@@ -99,7 +99,7 @@ function App() {
         <Route path="company/Dash" element={<Dash />} />
         <Route path="company/application" element={<Application />} />
         <Route path="company/pending" element={<Pending />} />
-        <Route path="company/intership" element={<Postnewinternship />} />
+        <Route path="/internship" element={<Postnewinternship />} />
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
