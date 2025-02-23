@@ -36,7 +36,7 @@ function CurrentInternship() {
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/student-dashboard" },
     { name: "Internship Listings", icon: <Briefcase size={20} />, path: "/student/listings" },
     { name: "Applications", icon: <FileText size={20} />, path: "/student/applications" },
-    { name: "Notifications", icon: <Bell size={20} />, path: "/student/notifications", badge: 3 },
+    { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
   ];
 
   const toggleSidebar = () => {

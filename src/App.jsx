@@ -30,6 +30,7 @@ import Pending from "./components/Company/Pending";
 import Reports from "./components/Admin/Reports";
 import Postnewinternship from "./components/Company/Postnewinternship";
 import Create from "./components/Admin/Create";
+import Apply from "./components/Student/Apply";
 
 function App() {
   return (
@@ -93,6 +94,7 @@ function App() {
         <Route path="/student/listings" element={<Listings />} />
         <Route path="/student/current" element={<CurrentInternship />} />
         <Route path="/student/applications" element={<Applications />} />
+        <Route path="/apply" element={<Apply />} />
 
         {/*Company (Without Navbar) */}
         <Route path="company/interns" element={<Interns />} />

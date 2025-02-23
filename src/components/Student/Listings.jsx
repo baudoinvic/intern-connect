@@ -28,7 +28,7 @@ function Listings() {
     { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/student-dashboard" },
     { name: "Applications", icon: <FileText size={20} />, path: "/student/applications" },
     { name: "Current Internship", icon: <Clock size={20} />, path: "/student/current" },
-    { name: "Notifications", icon: <Bell size={20} />, path: "/student/notifications", badge: 3 },
+    { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
   ];
 
   const toggleSidebar = () => {
@@ -43,7 +43,10 @@ function Listings() {
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
       {/* Mobile Header */}
       <div className="md:hidden bg-white p-4 flex items-center justify-between shadow-md">
-        <button onClick={toggleSidebar} className="p-2 rounded-lg hover:bg-gray-100">
+        <button
+          onClick={toggleSidebar}
+          className="p-2 rounded-lg hover:bg-gray-100"
+        >
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <div className="flex items-center space-x-3">
@@ -73,7 +76,9 @@ function Listings() {
               className="w-12 h-12 rounded-full bg-gray-200"
             />
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">{studentInfo.name}</h2>
+              <h2 className="text-lg font-semibold text-gray-800">
+                {studentInfo.name}
+              </h2>
               <p className="text-sm text-gray-500">Student</p>
             </div>
           </div>
@@ -100,7 +105,6 @@ function Listings() {
               <ChevronRight size={16} className="text-gray-400" />
             </Link>
           ))}
-        
         </nav>
       </div>
 
@@ -113,9 +117,18 @@ function Listings() {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
+
+      <div className="flex-1 overflow-auto ">
+        <Link to ="/apply">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mt-16 ml-8">
+            Apply for internship
+          </button>
+        </Link>
+
         <div className="p-4 md:p-8">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Internship Listings</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Internship Listings
+          </h2>
 
           {/* Internship Listing Table */}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -131,9 +144,7 @@ function Listings() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Apply
-                  </th>
+
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Action
                   </th>
@@ -142,13 +153,21 @@ function Listings() {
               <tbody>
                 {/* Example Row */}
                 <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">Frontend Developer</td>
+                  <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                    Frontend Developer
+                  </td>
                   <td className="px-6 py-4 text-sm text-gray-500">TechCorp</td>
                   <td className="px-6 py-4 text-sm text-gray-500">Accepted</td>
-                  <td className="px-6 py-4 text-sm text-blue-500 cursor-pointer">Apply</td>
+
                   <td className="px-6 py-4 text-sm text-gray-500 flex space-x-4">
-                    <Edit size={20} className="cursor-pointer text-gray-500 hover:text-blue-600" />
-                    <CheckCircle size={20} className="cursor-pointer text-green-500" />
+                    <Edit
+                      size={20}
+                      className="cursor-pointer text-gray-500 hover:text-blue-600"
+                    />
+                    <CheckCircle
+                      size={20}
+                      className="cursor-pointer text-green-500"
+                    />
                   </td>
                 </tr>
               </tbody>
