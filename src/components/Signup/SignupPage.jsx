@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios"
 
 function SignupPage() {
 
@@ -198,6 +199,8 @@ function SignupPage() {
                 'Create Account'
               )}
             </button>
+
+            <ToastContainer />
           </form>
 
           <div className="mt-6">
