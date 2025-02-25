@@ -10,46 +10,52 @@ import {
 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignupPage() {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    password: '',
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+   const [error, setError] = useState("");
+     const [showPassword, setShowPassword] = useState(false);
+     const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    
-    // Basic validation
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-    
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Registration data:', formData);
-      setIsLoading(false);
-      navigate('/login'); 
-    }, 1000);
-  };
+
+    const [formData, setFormData] = useState({
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      password: "",
+    });
+
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/auth/register",
+          formData
+        );
+        console.log("Response Data:", response.data);
+        toast.success("User registered successfully");
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } catch (error) {
+        console.error("Error:", error.response ? error.response.data : error);
+        toast.error("Failed to register. Please try again later.");
+      }
+    };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">

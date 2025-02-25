@@ -1,5 +1,6 @@
 
 
+
 import {
   AlertCircle,
   Briefcase,
@@ -7,39 +8,63 @@ import {
   EyeOff,
   Lock,
   LogIn,
-  User
+  User,
 } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+import { toast } from "react-toastify";
 
 function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // ✅ Add isLoading state
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setIsLoading(true);
+    setIsLoading(true); // ✅ Start loading
+    setError(""); // Clear any previous errors
 
-    // Simulate API call
-    setTimeout(() => {
-      if (username === "admin" && password === "admin") {
-        navigate("/admin-dashboard");
-      } else if (username === "student" && password === "student") {
-        navigate("/student-dashboard");
-      } else if (username === "coordinator" && password === "coordinator") {
-        navigate("/coordinator-dashboard");
-      } else if(username === "companie" && password === "companie"){
-        navigate("/company");
-      }else {
-        setError("Invalid credentials. Please try again.");
-      }
-      setIsLoading(false);
-    }, 1000);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      const { token, role } = response.data; // Extract role from API response
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role); // Store role in localStorage
+
+      toast.success("Login successful!");
+
+      // Redirect based on role
+      setTimeout(() => {
+        if (role === "admin") {
+          navigate("/Admindashboard/Dashboard");
+        } else if (role === "student") {
+          navigate("/Studentdashboard");
+        } else if (role === "coordinator") {
+          navigate("/Coordinatordashboard");
+        } else if (role === "company") {
+          navigate("/Companydashboard");
+        } else {
+          navigate("/"); // Default redirect if role is unknown
+        }
+      }, 2000);
+    } catch (err) {
+      setError("Invalid credentials. Please try again.");
+      toast.error("Invalid credentials. Please try again.");
+      console.error("Login failed:", err);
+    } finally {
+      setIsLoading(false); // ✅ Stop loading
+    }
   };
 
   return (
@@ -60,17 +85,20 @@ function LoginPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-xl sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleLogin}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="flex items-center space-x-2 p-4 bg-red-50 rounded-lg text-red-600">
                 <AlertCircle size={20} />
                 <span>{error}</span>
               </div>
             )}
-            
+
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Username
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -83,12 +111,16 @@ function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your email"
+                  required
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
@@ -117,25 +149,9 @@ function LoginPage() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                  Remember me
-                </label>
-              </div>
-              <a href="#" className="text-sm text-blue-600 hover:text-blue-500">
-                Forgot password?
-              </a>
-            </div>
-
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading} // ✅ Disable button when loading
               className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
@@ -155,16 +171,18 @@ function LoginPage() {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Don't have an account?</span>
+                <span className="px-2 bg-white text-gray-500">
+                  Don't have an account?
+                </span>
               </div>
             </div>
             <div className="mt-6">
-            <button
-              onClick={() => navigate('/signup')}
-              className="w-full flex justify-center items-center px-4 py-2 border border-blue-600 rounded-lg shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-blue-50"
-            >
-              Create new account
-            </button>
+              <button
+                onClick={() => navigate("/signup")}
+                className="w-full flex justify-center items-center px-4 py-2 border border-blue-600 rounded-lg shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-blue-50"
+              >
+                Create new account
+              </button>
             </div>
           </div>
         </div>
