@@ -51,7 +51,7 @@ function SignupPage() {
 
         setTimeout(() => {
           navigate("/login");
-        }, 2000);
+        }, 3000);
       } catch (error) {
         console.error("Error:", error.response ? error.response.data : error);
         toast.error("Failed to register. Please try again later.");
@@ -62,13 +62,13 @@ function SignupPage() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <button
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
           className="absolute top-8 left-8 text-gray-600 hover:text-gray-900 flex items-center"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
           Back to Login
         </button>
-        
+
         <div className="flex justify-center">
           <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center">
             <Briefcase className="w-8 h-8 text-white" />
@@ -77,7 +77,6 @@ function SignupPage() {
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Create your account
         </h2>
-    
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -90,6 +89,7 @@ function SignupPage() {
               </div>
             )}
 
+          
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -97,8 +97,8 @@ function SignupPage() {
                 </label>
                 <input
                   type="text"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="firstname" // ✅ Matches formData
+                  value={formData.firstname}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
@@ -111,8 +111,8 @@ function SignupPage() {
                 </label>
                 <input
                   type="text"
-                  name="lastName"
-                  value={formData.lastName}
+                  name="lastname" // ✅ Matches formData
+                  value={formData.lastname}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
@@ -196,7 +196,7 @@ function SignupPage() {
               {isLoading ? (
                 <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
-                'Create Account'
+                "Create Account"
               )}
             </button>
 
@@ -209,12 +209,14 @@ function SignupPage() {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Already have an account?</span>
+                <span className="px-2 bg-white text-gray-500">
+                  Already have an account?
+                </span>
               </div>
             </div>
             <div className="mt-6">
               <button
-                onClick={() => navigate('/login')}
+                onClick={() => navigate("/login")}
                 className="w-full flex justify-center items-center px-4 py-2 border border-blue-600 rounded-lg shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-blue-50"
               >
                 Sign in instead

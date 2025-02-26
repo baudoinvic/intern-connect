@@ -19,13 +19,13 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // ✅ Add isLoading state
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // ✅ Start loading
-    setError(""); // Clear any previous errors
+    setIsLoading(true); 
+    setError(""); 
 
     try {
       const response = await axios.post(
@@ -36,10 +36,10 @@ function LoginPage() {
         }
       );
 
-      const { token, role } = response.data; // Extract role from API response
+      const { token, role } = response.data; 
 
       localStorage.setItem("token", token);
-      localStorage.setItem("role", role); // Store role in localStorage
+      localStorage.setItem("role", role);
 
       toast.success("Login successful!");
 
@@ -54,15 +54,15 @@ function LoginPage() {
         } else if (role === "company") {
           navigate("/Companydashboard");
         } else {
-          navigate("/"); // Default redirect if role is unknown
+          navigate("/"); 
         }
-      }, 2000);
+      }, 3000);
     } catch (err) {
       setError("Invalid credentials. Please try again.");
       toast.error("Invalid credentials. Please try again.");
       console.error("Login failed:", err);
     } finally {
-      setIsLoading(false); // ✅ Stop loading
+      setIsLoading(false); 
     }
   };
 
@@ -150,7 +150,7 @@ function LoginPage() {
 
             <button
               type="submit"
-              disabled={isLoading} // ✅ Disable button when loading
+              disabled={isLoading} 
               className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
@@ -162,6 +162,7 @@ function LoginPage() {
                 </>
               )}
             </button>
+               <ToastContainer />
           </form>
 
           <div className="mt-6">
