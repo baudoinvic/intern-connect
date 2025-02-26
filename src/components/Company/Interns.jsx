@@ -58,8 +58,10 @@ function Interns() {
         const data = await response.json();
         setInternships([...internships, data]); // Add the new internship to the state
         setModalOpen(false); // Close the modal
+         toast.success("Internship added successfully!");
       } else {
         console.error("Error adding internship");
+          toast.error("Failed to add internship");
       }
     } catch (error) {
       console.error("Error:", error);

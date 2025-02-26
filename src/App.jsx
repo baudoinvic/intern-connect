@@ -77,7 +77,7 @@ function App() {
         {/* Dashboard Routes (Without Navbar) */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/Admin" element={<Admin />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/RevenueChart" element={<RevenueChart />} />
         <Route path="admin/Reports" element={<Reports />} />
