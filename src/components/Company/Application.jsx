@@ -5,17 +5,20 @@ import { Home, List, FileText, Users, Menu, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Application = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [applications, setApplications] = useState([]);
 
-  // Fetch applications from backend
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/applications");
+        const response = await axios.get(
+          "http://localhost:3000/api/applications"
+        );
         setApplications(response.data);
       } catch (error) {
         console.error("Error fetching applications:", error);
@@ -25,41 +28,53 @@ const Application = () => {
     fetchApplications();
   }, []);
 
-  const menuItems = [
-    { name: "Dashboard", icon: <Home size={20} />, path: "/company/Dash" },
-    {
-      name: "Internship Listings",
-      icon: <List size={20} />,
-      path: "/company/interns",
-    },
-    {
-      name: "Applications Received",
-      icon: <FileText size={20} />,
-      path: "/company/application",
-    },
-    {
-      name: "Pending Approvals",
-      icon: <Users size={20} />,
-      path: "/company/pending",
-    },
-  ];
+  const handleStatusChange = async (id, status) => {
+   try {
+  await axios.put(`http://localhost:3000/api/applications/${id}/status`, { status });
+  setApplications((prev) =>
+    prev.map((app) => (app._id === id ? { ...app, status } : app))
+  );
+  toast.success(`Application ${status}`);
+} catch (error) {
+  console.error("Error updating status:", error);
+  toast.error("Failed to update status");
+}
+  }
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
-      {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } 
-      lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
+        } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
       >
         <nav className="mt-6">
-          {menuItems.map((item, index) => (
+          {[
+            {
+              name: "Dashboard",
+              icon: <Home size={20} />,
+              path: "/company/Dash",
+            },
+            {
+              name: "Internship Listings",
+              icon: <List size={20} />,
+              path: "/company/interns",
+            },
+            {
+              name: "Applications Received",
+              icon: <FileText size={20} />,
+              path: "/company/application",
+            },
+            {
+              name: "Pending Approvals",
+              icon: <Users size={20} />,
+              path: "/company/pending",
+            },
+          ].map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              className="flex items-center justify-between px-6 py-3 text-gray-700 
-            hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+              className="flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
               onClick={() => setSidebarOpen(false)}
             >
               <div className="flex items-center">
@@ -72,14 +87,11 @@ const Application = () => {
         </nav>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 overflow-auto pt-16 lg:pt-0">
         <div className="p-4 md:p-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             Applications Received
           </h2>
-
-          {/* Applications Table */}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -131,10 +143,20 @@ const Application = () => {
                         <button className="bg-blue-500 text-white px-3 py-1 rounded">
                           View
                         </button>
-                        <button className="bg-green-500 text-white px-3 py-1 rounded">
+                        <button
+                          onClick={() =>
+                            handleStatusChange(app._id, "Accepted")
+                          }
+                          className="bg-green-500 text-white px-3 py-1 rounded"
+                        >
                           Accept
                         </button>
-                        <button className="bg-red-500 text-white px-3 py-1 rounded">
+                        <button
+                          onClick={() =>
+                            handleStatusChange(app._id, "Rejected")
+                          }
+                          className="bg-red-500 text-white px-3 py-1 rounded"
+                        >
                           Reject
                         </button>
                       </td>
@@ -155,6 +177,7 @@ const Application = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
