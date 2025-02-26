@@ -1,23 +1,29 @@
 
 
 
-import {
-  Home,
-  List,
-  FileText,
-  Users,
-  Settings,
-  LogOut,
-  Menu,
-  X,
-  ChevronRight,
-} from "lucide-react";
-import React, { useState } from "react";
+import { Home, List, FileText, Users, Menu, ChevronRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Application = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [applications, setApplications] = useState([]);
+
+  // Fetch applications from backend
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/applications");
+        setApplications(response.data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      }
+    };
+
+    fetchApplications();
+  }, []);
 
   const menuItems = [
     { name: "Dashboard", icon: <Home size={20} />, path: "/company/Dash" },
@@ -36,49 +42,24 @@ const Application = () => {
       icon: <Users size={20} />,
       path: "/company/pending",
     },
-   
   ];
-
-  const handleLogout = () => {
-    navigate("/");
-  };
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Mobile Header */}
-      <div className="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm flex items-center justify-between px-4 lg:hidden z-30">
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="text-xl font-bold text-gray-800">
-          Applications Received
-        </h1>
-        <div className="w-8" />
-      </div>
-
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 transform ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
+        } 
+      lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
       >
         <nav className="mt-6">
           {menuItems.map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              className="flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+              className="flex items-center justify-between px-6 py-3 text-gray-700 
+            hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
               onClick={() => setSidebarOpen(false)}
             >
               <div className="flex items-center">
@@ -88,7 +69,6 @@ const Application = () => {
               <ChevronRight size={16} className="text-gray-400" />
             </Link>
           ))}
-       
         </nav>
       </div>
 
@@ -99,98 +79,77 @@ const Application = () => {
             Applications Received
           </h2>
 
-          {/* Filters */}
-          <div className="flex space-x-4 mb-4">
-            <select className="border p-2 rounded">
-              <option>All Positions</option>
-              <option>Frontend Developer</option>
-              <option>Backend Developer</option>
-            </select>
-            <select className="border p-2 rounded">
-              <option>All Status</option>
-              <option>Pending</option>
-              <option>Accepted</option>
-              <option>Rejected</option>
-            </select>
-          </div>
-
           {/* Applications Table */}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Student Name
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Internship Role
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Date Applied
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    John Doe
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    Frontend Developer
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    Feb 15, 2025
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className="px-2 py-1 rounded text-sm bg-yellow-300">
-                      Pending
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded">
-                      View
-                    </button>
-                    <button className="bg-green-500 text-white px-3 py-1 rounded">
-                      Accept
-                    </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded">
-                      Reject
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    Jane Smith
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    Backend Developer
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    Feb 12, 2025
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className="px-2 py-1 rounded text-sm bg-yellow-300">
-                      Pending
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded">
-                      View
-                    </button>
-                    <button className="bg-green-500 text-white px-3 py-1 rounded">
-                      Accept
-                    </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded">
-                      Reject
-                    </button>
-                  </td>
-                </tr>
+                {applications.length > 0 ? (
+                  applications.map((app) => (
+                    <tr key={app._id}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        {app.studentName}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {app.internshipRole}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {new Date(app.dateApplied).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <span
+                          className={`px-2 py-1 rounded text-sm ${
+                            app.status === "Pending"
+                              ? "bg-yellow-300"
+                              : app.status === "Accepted"
+                              ? "bg-green-300"
+                              : "bg-red-300"
+                          }`}
+                        >
+                          {app.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
+                        <button className="bg-blue-500 text-white px-3 py-1 rounded">
+                          View
+                        </button>
+                        <button className="bg-green-500 text-white px-3 py-1 rounded">
+                          Accept
+                        </button>
+                        <button className="bg-red-500 text-white px-3 py-1 rounded">
+                          Reject
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="5"
+                      className="px-6 py-4 text-center text-gray-500"
+                    >
+                      No applications found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

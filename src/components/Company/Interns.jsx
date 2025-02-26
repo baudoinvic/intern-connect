@@ -66,27 +66,10 @@ function Interns() {
     }
   };
 
-    //  const handleDeleteInternship = async (id) => {
-    //    if (window.confirm("Are you sure you want to delete?")) {
-    //      let token = localStorage.getItem("token");
-    //      axios({
-    //        url: `http://localhost:3000/api/internships/${id}`,
-    //        method: "DELETE",
-    //        headers: {
-    //          Authorization: `Bearer ${token}`,
-    //        },
-    //      })
-    //        .then((response) => {
-    //          toast.success("Internship deleted successfully");
-    //          fetchInternships(); 
-    //        })
-    //        .catch((error) => {
-    //          toast.error(error.response.data.message);
-    //          console.log(error);
-    //        });
-    //    }
+   
 
     const handleDeleteInternship = async (id) => {
+      console.log(id)
       if (window.confirm("Are you sure you want to delete?")) {
         let token = localStorage.getItem("token");
 
