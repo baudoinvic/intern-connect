@@ -1,6 +1,4 @@
 
-
-
 import { Home, List, FileText, Users, Menu, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";

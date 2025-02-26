@@ -69,7 +69,7 @@ function Interns() {
    
 
     const handleDeleteInternship = async (id) => {
-      console.log(id)
+    
       if (window.confirm("Are you sure you want to delete?")) {
         let token = localStorage.getItem("token");
 
