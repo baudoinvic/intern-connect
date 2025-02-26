@@ -31,6 +31,7 @@ import Reports from "./components/Admin/Reports";
 import Postnewinternship from "./components/Company/Postnewinternship";
 import Create from "./components/Admin/Create";
 import Apply from "./components/Student/Apply";
+import Admin from "./components/Admin/Admin";
 
 function App() {
   return (
@@ -74,7 +75,9 @@ function App() {
         />
 
         {/* Dashboard Routes (Without Navbar) */}
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+        <Route path="/admin" element={<Admin />} />
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/RevenueChart" element={<RevenueChart />} />
         <Route path="admin/Reports" element={<Reports />} />

@@ -1,6 +1,6 @@
-
-import React, { useState } from "react";
+import React from 'react'
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState } from 'react';
 import {
   Briefcase,
   Building2,
@@ -15,63 +15,60 @@ import {
 } from "lucide-react";
 import RevenueChart from "./Chart";
 
-function AdminDashboard() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activePage, setActivePage] = useState(location.pathname); // Track active page
+const Admin = () => {
 
-  const menuItems = [
-    {
-      name: "Dashboard",
-      icon: <LayoutDashboard size={20} />,
-      path: "/admin/dashboard",
-    },
-    { name: "Users", icon: <Users size={20} />, path: "/admin/users" },
-    {
-      name: "Institutions",
-      icon: <Building2 size={20} />,
-      path: "/admin/institutions",
-    },
-    {
-      name: "Internship Listing",
-      icon: <Briefcase size={20} />,
-      path: "/admin/internships",
-    },
-    { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
-  ];
-
-  const statsCards = [
-    {
-      title: "Total Users",
-      count: "1,234",
-      icon: <Users size={24} />,
-      color: "bg-blue-500",
-    },
-    {
-      title: "Institutions",
-      count: "56",
-      icon: <Building2 size={24} />,
-      color: "bg-green-500",
-    },
-    {
-      title: "Active Internships",
-      count: "89",
-      icon: <Briefcase size={24} />,
-      color: "bg-purple-500",
-    },
-    {
-      title: "Subscribers",
-      count: "432",
-      icon: <CreditCard size={24} />,
-      color: "bg-orange-500",
-    },
-  ];
-
-  const handleLogout = () => {
-    navigate("/");
-  };
-
+      const navigate = useNavigate();
+      const location = useLocation();
+      const [sidebarOpen, setSidebarOpen] = useState(false);
+      const [activePage, setActivePage] = useState(location.pathname); // Track active page
+    
+      const menuItems = [
+        { name: "Dashboard",icon: <LayoutDashboard size={20} />, path: "/admin/dashboard" },
+        { name: "Users", icon: <Users size={20} />, path: "/admin/users" },
+        {
+          name: "Institutions",
+          icon: <Building2 size={20} />,
+          path: "/admin/institutions",
+        },
+        {
+          name: "Internship Listing",
+          icon: <Briefcase size={20} />,
+          path: "/admin/internships",
+        },
+        { name: "Reports", icon: <FileText size={20} />, path: "/admin/reports" },
+      
+      ];
+    
+      const statsCards = [
+        {
+          title: "Total Users",
+          count: "1,234",
+          icon: <Users size={24} />,
+          color: "bg-blue-500",
+        },
+        {
+          title: "Institutions",
+          count: "56",
+          icon: <Building2 size={24} />,
+          color: "bg-green-500",
+        },
+        {
+          title: "Active Internships",
+          count: "89",
+          icon: <Briefcase size={24} />,
+          color: "bg-purple-500",
+        },
+        {
+          title: "Subscribers",
+          count: "432",
+          icon: <CreditCard size={24} />,
+          color: "bg-orange-500",
+        },
+      ];
+    
+      const handleLogout = () => {
+        navigate("/");
+      };
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
       {/* Mobile Sidebar Overlay */}
@@ -119,9 +116,8 @@ function AdminDashboard() {
               <ChevronRight size={16} className="text-gray-400" />
             </Link>
           ))}
-      
 
-          <div className="" style={{marginTop: '23rem'}}>
+          <div className="" style={{ marginTop: "23rem" }}>
             <button
               onClick={handleLogout}
               className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
@@ -178,4 +174,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default Admin

@@ -37,30 +37,33 @@ function LoginPage() {
       );
 
       const { token, role } = response.data; 
+        console.log("Role:", role);
 
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
       toast.success("Login successful!");
 
-      // Redirect based on role
-      setTimeout(() => {
-        if (role === "admin") {
-          navigate("/Admindashboard/Dashboard");
-        } else if (role === "student") {
-          navigate("/Studentdashboard");
-        } else if (role === "coordinator") {
-          navigate("/Coordinatordashboard");
-        } else if (role === "company") {
-          navigate("/Companydashboard");
-        } else {
-          navigate("/"); 
-        }
-      }, 3000);
+
+
+       setTimeout(() => {
+         if (role === "admin") {
+           navigate("/admin/dashboard");
+         } else if (role === "student") {
+           navigate("/student-dashboard");
+         } else if (role === "coordinator") {
+           navigate("/coordinator-dashboard");
+         } else if (role === "company") {
+           navigate("/company");
+         } else {
+           navigate("/"); // Default homepage
+         }
+       }, 3000);
     } catch (err) {
       setError("Invalid credentials. Please try again.");
       toast.error("Invalid credentials. Please try again.");
       console.error("Login failed:", err);
+    
     } finally {
       setIsLoading(false); 
     }
