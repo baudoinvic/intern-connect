@@ -1,4 +1,9 @@
 
+
+
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import profileImage from "../../assets/images/DSC_1168.JPG";
 import {
   Bell,
   CheckCircle,
@@ -9,25 +14,36 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
-  X
+  X,
 } from "lucide-react";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import profileImage from "../../assets/images/DSC_1168.JPG";
 
 function Listings() {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [internships, setInternships] = useState([]);
 
+  // Simulate student info (this would be dynamic based on logged-in user)
   const studentInfo = {
     name: "William",
     image: profileImage,
   };
 
   const menuItems = [
-    { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/student-dashboard" },
-    { name: "Applications", icon: <FileText size={20} />, path: "/student/applications" },
-    { name: "Current Internship", icon: <Clock size={20} />, path: "/student/current" },
+    {
+      name: "Dashboard",
+      icon: <LayoutDashboard size={20} />,
+      path: "/student-dashboard",
+    },
+    {
+      name: "Applications",
+      icon: <FileText size={20} />,
+      path: "/student/applications",
+    },
+    {
+      name: "Current Internship",
+      icon: <Clock size={20} />,
+      path: "/student/current",
+    },
     { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
   ];
 
@@ -38,6 +54,25 @@ function Listings() {
   const handleLogout = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    // Fetch the internship listings from the backend
+    const fetchInternships = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/posts");
+        if (response.ok) {
+          const data = await response.json();
+          setInternships(data);
+        } else {
+          console.error("Error fetching internships");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchInternships();
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
@@ -117,9 +152,8 @@ function Listings() {
       )}
 
       {/* Main Content */}
-
-      <div className="flex-1 overflow-auto ">
-        <Link to ="/apply">
+      <div className="flex-1 overflow-auto">
+        <Link to="/apply">
           <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mt-16 ml-8">
             Apply for internship
           </button>
@@ -144,32 +178,35 @@ function Listings() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {/* Example Row */}
-                <tr className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                    Frontend Developer
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">TechCorp</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">Accepted</td>
-
-                  <td className="px-6 py-4 text-sm text-gray-500 flex space-x-4">
-                    <Edit
-                      size={20}
-                      className="cursor-pointer text-gray-500 hover:text-blue-600"
-                    />
-                    <CheckCircle
-                      size={20}
-                      className="cursor-pointer text-green-500"
-                    />
-                  </td>
-                </tr>
+                {internships.map((internship) => (
+                  <tr className="hover:bg-gray-50" key={internship._id}>
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      {internship.title}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500">
+                      {internship.company}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500">
+                      Available
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500 flex space-x-4">
+                      <Edit
+                        size={20}
+                        className="cursor-pointer text-gray-500 hover:text-blue-600"
+                      />
+                      <CheckCircle
+                        size={20}
+                        className="cursor-pointer text-green-500"
+                      />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

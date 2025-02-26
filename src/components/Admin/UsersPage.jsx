@@ -1,15 +1,14 @@
 
 
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   Edit,
   Trash,
-  Menu,
-
-  X,
   LayoutDashboard,
   Building2,
   Briefcase,
@@ -17,58 +16,59 @@ import {
 } from "lucide-react";
 import { FaTrash } from "react-icons/fa";
 
-
 const UsersPage = () => {
-    const [users, setUsers] = useState([]);
-   const fetchUsers = () => {
-     let token = localStorage.getItem("token");
-     axios({
-       url: "http://localhost:3000/api/users",
-       method: "GET",
-       headers: {
-         Authorization: `Bearer ${token}`,
-       },
-     })
-       .then((response) => {
-         const allUsers = response.data;
-         setUsers(allUsers);
-         toast.success(response.data.message);
-       })
-       .catch((error) => {
-         console.log(error);
-       });
-   };
+  const [users, setUsers] = useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-   useEffect(() => {
-     fetchUsers();
-   }, []);
+  const fetchUsers = () => {
+    let token = localStorage.getItem("token");
+    axios({
+      url: "http://localhost:3000/api/users",
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        const allUsers = response.data;
+        setUsers(allUsers);
+        toast.success(response.data.message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-   const handleDeleteUser = async (id) => {
-     if (window.confirm("Are you sure you want to delete?")) {
-       let token = localStorage.getItem("token");
-       axios({
-         url: `http://localhost:3000/api/users/${id}`,
-         method: "DELETE",
-         headers: {
-           Authorization: `Bearer ${token}`,
-         },
-       })
-         .then((response) => {
-           toast.success("User deleted successfully");
-           console.log(response, "Response");
-         })
-         .catch((error) => {
-           toast.error(error.response.data.message);
-           console.log(error, "Error");
-         });
-     }
-   };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const handleDeleteUser = async (id) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      let token = localStorage.getItem("token");
+      axios({
+        url: `http://localhost:3000/api/users/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          toast.success("User deleted successfully");
+          fetchUsers(); // Refresh users list after deletion
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          console.log(error);
+        });
+    }
+  };
 
   const menuItems = [
     {
       name: "Dashboard",
       icon: <LayoutDashboard size={20} />,
-      path: "/admin-dashboard",
+      path: "/admin/dashboard",
     },
     {
       name: "Institutions",
@@ -85,7 +85,34 @@ const UsersPage = () => {
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
-      
+      {/* Sidebar */}
+      <div
+        className={`${
+          sidebarOpen ? "w-64" : "w-16"
+        } bg-white border-r border-gray-200 transition-all duration-300`}
+      >
+        <button
+          className="p-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          {sidebarOpen ? "Collapse" : "Expand"}
+        </button>
+        <nav className="mt-4">
+          <ul className="space-y-2">
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                <Link
+                  to={item.path}
+                  className="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded"
+                >
+                  {item.icon}
+                  {sidebarOpen && <span className="ml-3">{item.name}</span>}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 p-4 md:p-8 space-y-6 pt-16 lg:pt-0">
@@ -131,16 +158,11 @@ const UsersPage = () => {
                     <button className="text-blue-600 hover:text-blue-800">
                       <Edit size={18} />
                     </button>
-                    {/* <button className="text-red-600 hover:text-red-800">
-                      <Trash size={18} />
-                    </button> */}
-
                     <button
-                      className="text-red-600 hover:text-red-80 cursor-pointer"
+                      className="text-red-600 hover:text-red-800 cursor-pointer"
                       onClick={() => handleDeleteUser(user._id)}
                     >
                       <FaTrash className="cursor-pointer" />
-                      <ToastContainer />
                     </button>
                   </td>
                 </tr>
@@ -152,6 +174,7 @@ const UsersPage = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
