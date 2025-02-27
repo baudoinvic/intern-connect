@@ -44,8 +44,6 @@ function LoginPage() {
 
       toast.success("Login successful!");
 
-
-
        setTimeout(() => {
          if (role === "admin") {
            navigate("/admin/dashboard");
