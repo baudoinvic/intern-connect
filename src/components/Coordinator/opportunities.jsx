@@ -23,12 +23,7 @@ function InternshipOpportunitiesPage() {
       path: "/coordinator/opportunities",
     },
    
-    {
-      name: "Notifications",
-      icon: <Bell size={20} />,
-      path: "",
-      badge: 5,
-    },
+   
   ];
 
   const internshipData = [
