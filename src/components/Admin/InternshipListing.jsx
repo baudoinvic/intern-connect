@@ -13,13 +13,97 @@ import {
     Trash,
     LayoutDashboard
   } from "lucide-react";
-  import React, { useState } from "react";
+  import React, { useState,useEffect } from "react";
   import { Link, useNavigate } from "react-router-dom";
+  import { ToastContainer, toast } from "react-toastify";
+  import "react-toastify/dist/ReactToastify.css";
+
   
   function InternshipListing() {
     const navigate = useNavigate();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [modalOpen, setModalOpen] = useState(false);
+   const [sidebarOpen, setSidebarOpen] = useState(false);
+     const [modalOpen, setModalOpen] = useState(false);
+     const [internships, setInternships] = useState([]);
+   
+     // Fetch internships for the logged-in company
+     useEffect(() => {
+       const fetchInternships = async () => {
+         try {
+           const response = await fetch("http://localhost:3000/api/posts");
+           const data = await response.json();
+           setInternships(data);
+         } catch (error) {
+           console.error("Error fetching internships:", error);
+         }
+       };
+   
+       fetchInternships();
+     }, []);
+   
+     const handleAddInternship = async (e) => {
+       e.preventDefault();
+       const newInternship = {
+         title: e.target.title.value,
+         company: e.target.company.value,
+         location: e.target.location.value,
+         duration: e.target.duration.value,
+       };
+   
+       try {
+         const response = await fetch("http://localhost:3000/api/internships", {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify(newInternship),
+         });
+   
+         if (response.ok) {
+           const data = await response.json();
+           setInternships([...internships, data]); // Add the new internship to the state
+           setModalOpen(false); // Close the modal
+            toast.success("Internship added successfully!");
+         } else {
+           console.error("Error adding internship");
+             toast.error("Failed to add internship");
+         }
+       } catch (error) {
+         console.error("Error:", error);
+       }
+     };
+   
+      
+   
+       const handleDeleteInternship = async (id) => {
+       
+         if (window.confirm("Are you sure you want to delete?")) {
+           let token = localStorage.getItem("token");
+   
+           try {
+             const response = await fetch(
+               `http://localhost:3000/api/internships/${id}`,
+               {
+                 method: "DELETE",
+                 headers: {
+                   Authorization: `Bearer ${token}`,
+                   "Content-Type": "application/json",
+                 },
+               }
+             );
+   
+             if (response.ok) {
+               toast.success("Internship deleted successfully");
+               fetchInternships(); // Call fetchInternships to update the list
+             } else {
+               const errorData = await response.json();
+               toast.error(errorData.message || "Failed to delete internship");
+             }
+           } catch (error) {
+             toast.error("Error deleting internship");
+             console.error("Delete Error:", error);
+           }
+         }
+       };
   
     const menuItems = [
       { name: "Dashboard", icon: <LayoutDashboard size={20} />, path: "/admin-dashboard" },
@@ -33,15 +117,16 @@ import {
       navigate("/");
     };
   
-    const handleAddInternship = () => {
-      setModalOpen(true);
-    };
+    // const handleAddInternship = () => {
+    //   setModalOpen(true);
+    // };
   
     const closeModal = () => {
       setModalOpen(false);
     };
   
     return (
+      
       <div className="flex h-screen bg-gray-100 overflow-hidden">
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
@@ -50,7 +135,7 @@ import {
             onClick={() => setSidebarOpen(false)}
           />
         )}
-  
+
         {/* Mobile Header */}
         <div className="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm flex items-center justify-between px-4 lg:hidden z-30">
           <button
@@ -59,28 +144,18 @@ import {
           >
             <Menu size={24} />
           </button>
-          <h1 className="text-xl font-bold text-gray-800">Internship Listing</h1>
-          <div className="w-8" /> {/* Placeholder for balance */}
+          <h1 className="text-xl font-bold text-gray-800">
+            Internship Listing
+          </h1>
         </div>
-  
+
         {/* Sidebar */}
         <div
-          className={`
-            fixed inset-y-0 left-0 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-            lg:relative lg:translate-x-0
-            w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out
-          `}
+          className={`fixed inset-y-0 left-0 transform ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
         >
-          <div className="flex items-center justify-between h-16 border-b px-6">
-            <h1 className="text-xl font-bold text-gray-800">Admin Portal</h1>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden"
-            >
-              <X size={20} />
-            </button>
-          </div>
-          <nav className="mt-6">
+          <nav className="mt-6 flex flex-col h-full">
             {menuItems.map((item, index) => (
               <Link
                 key={index}
@@ -95,23 +170,31 @@ import {
                 <ChevronRight size={16} className="text-gray-400" />
               </Link>
             ))}
-          
+            <button
+              onClick={handleLogout}
+              className="flex items-center w-full px-6 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200 mt-auto"
+            >
+              <LogOut size={20} />
+              <span className="ml-3">Logout</span>
+            </button>
           </nav>
         </div>
-  
+
         {/* Main Content */}
         <div className="flex-1 overflow-auto pt-16 lg:pt-0">
           <div className="p-4 md:p-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">Internship Listings</h2>
-  
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Internship Listings
+            </h2>
+
             {/* Add Internship Button */}
             <button
-              onClick={handleAddInternship}
+              onClick={() => setModalOpen(true)}
               className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-4"
             >
               Add Internship
             </button>
-  
+
             {/* Internship Listing Table */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <table className="min-w-full divide-y divide-gray-200">
@@ -135,66 +218,89 @@ import {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {/* Example Internships */}
-                  {[1, 2, 3, 4, 5].map((item) => (
-                    <tr key={item}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Software Engineer Intern</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">UPskills Hub</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Kigali, Rwanda</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">6 months</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
+                  {internships.map((internship) => (
+                    <tr key={internship._id}>
+                      <td className="px-6 py-4 text-sm text-gray-800">
+                        {internship.title}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {internship.company}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {internship.location}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {internship.duration}
+                      </td>
+                      <td className="px-6 py-4 text-sm flex space-x-2">
                         <button className="text-blue-600 hover:text-blue-800">
                           <Edit size={18} />
                         </button>
-                        <button className="text-red-600 hover:text-red-800">
+                        <button
+                          className="text-red-600 hover:text-red-800"
+                          onClick={() => handleDeleteInternship(internship._id)}
+                        >
                           <Trash size={18} />
                         </button>
+                        <ToastContainer />
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-  
+
             {/* Add Internship Modal */}
             {modalOpen && (
               <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
                 <div className="bg-white rounded-lg shadow-lg w-96 p-6">
                   <h3 className="text-lg font-semibold mb-4">Add Internship</h3>
-                  <form>
+                  <form onSubmit={handleAddInternship}>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">Title</label>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Title
+                      </label>
                       <input
                         type="text"
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="title"
+                        className="w-full px-3 py-2 border rounded-md"
                       />
                     </div>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">Company</label>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Company
+                      </label>
                       <input
                         type="text"
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="company"
+                        className="w-full px-3 py-2 border rounded-md"
                       />
                     </div>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">Location</label>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Location
+                      </label>
                       <input
                         type="text"
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="location"
+                        className="w-full px-3 py-2 border rounded-md"
                       />
                     </div>
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">Duration</label>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Duration
+                      </label>
                       <input
                         type="text"
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        name="duration"
+                        className="w-full px-3 py-2 border rounded-md"
                       />
                     </div>
                     <div className="flex justify-end space-x-2">
                       <button
                         type="button"
                         className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
-                        onClick={closeModal}
+                        onClick={() => setModalOpen(false)}
                       >
                         Cancel
                       </button>
