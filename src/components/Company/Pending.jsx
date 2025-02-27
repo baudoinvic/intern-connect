@@ -9,12 +9,21 @@ import {
   Menu,
   ChevronRight,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Application = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/applications")
+      .then((res) => setApplications(res.data))
+      .catch((err) => console.error("Error fetching applications:", err));
+  }, []);
 
   const menuItems = [
     { name: "Dashboard", icon: <Home size={20} />, path: "/company/Dash" },
@@ -35,34 +44,8 @@ const Application = () => {
     },
   ];
 
-  const handleLogout = () => {
-    navigate("/");
-  };
-
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Mobile Header */}
-      <div className="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm flex items-center justify-between px-4 lg:hidden z-30">
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="p-2 rounded-md text-gray-600 hover:bg-gray-100"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="text-xl font-bold text-gray-800">
-          Applications Received
-        </h1>
-        <div className="w-8" />
-      </div>
-
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 transform ${
@@ -85,9 +68,6 @@ const Application = () => {
             </Link>
           ))}
         </nav>
-
-        {/* Logout Button at the Bottom */}
-        
       </div>
 
       {/* Main Content */}
@@ -96,21 +76,6 @@ const Application = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             Applications Received
           </h2>
-
-          {/* Filters */}
-          <div className="flex space-x-4 mb-4">
-            <select className="border p-2 rounded">
-              <option>All Positions</option>
-              <option>Frontend Developer</option>
-              <option>Backend Developer</option>
-            </select>
-            <select className="border p-2 rounded">
-              <option>All Status</option>
-              <option>Pending</option>
-              <option>Accepted</option>
-              <option>Rejected</option>
-            </select>
-          </div>
 
           {/* Applications Table */}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -129,40 +94,43 @@ const Application = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Action
-                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {/* Sample Row */}
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    John Doe
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    Frontend Developer
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                    Feb 15, 2025
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <span className="px-2 py-1 rounded text-sm bg-yellow-300">
-                      Pending
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded">
-                      View
-                    </button>
-                    <button className="bg-green-500 text-white px-3 py-1 rounded">
-                      Accept
-                    </button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded">
-                      Reject
-                    </button>
-                  </td>
-                </tr>
+                {applications.length > 0 ? (
+                  applications.map((app, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        {app.studentName}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {app.internshipRole}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {new Date(app.dateApplied).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <span
+                          className={`px-2 py-1 rounded text-sm ${
+                            app.status === "Pending"
+                              ? "bg-yellow-300"
+                              : app.status === "Accepted"
+                              ? "bg-green-300"
+                              : "bg-red-300"
+                          }`}
+                        >
+                          {app.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="py-4 text-center text-gray-500">
+                      No applications found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

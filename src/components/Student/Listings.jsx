@@ -85,11 +85,7 @@ function Listings() {
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <div className="flex items-center space-x-3">
-          <img
-            src={studentInfo.image}
-            alt="Profile"
-            className="w-8 h-8 rounded-full bg-gray-200"
-          />
+        
           <span className="font-semibold">{studentInfo.name}</span>
         </div>
       </div>
@@ -105,15 +101,9 @@ function Listings() {
         {/* Profile Section */}
         <div className="p-6 border-b hidden md:block">
           <div className="flex items-center space-x-4">
-            <img
-              src={studentInfo.image}
-              alt="Profile"
-              className="w-12 h-12 rounded-full bg-gray-200"
-            />
+          
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">
-                {studentInfo.name}
-              </h2>
+             
               <p className="text-sm text-gray-500">Student</p>
             </div>
           </div>
@@ -153,11 +143,7 @@ function Listings() {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
-        {/* <Link to="/apply">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mt-16 ml-8">
-            Apply for internship
-          </button>
-        </Link> */}
+       
 
         <div className="p-4 md:p-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -183,31 +169,7 @@ function Listings() {
                   </th>
                 </tr>
               </thead>
-              {/* <tbody>
-                {internships.map((internship) => (
-                  <tr className="hover:bg-gray-50" key={internship._id}>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                      {internship.title}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {internship.company}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      Available
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500 flex space-x-4">
-                      <Edit
-                        size={20}
-                        className="cursor-pointer text-gray-500 hover:text-blue-600"
-                      />
-                      <CheckCircle
-                        size={20}
-                        className="cursor-pointer text-green-500"
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody> */}
+            
 
               <tbody>
                 {internships.map((internship) => (
