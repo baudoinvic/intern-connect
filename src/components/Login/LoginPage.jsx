@@ -46,7 +46,7 @@ function LoginPage() {
 
        setTimeout(() => {
          if (role === "admin") {
-           navigate("/admin/dashboard");
+           navigate("/admin");
          } else if (role === "student") {
            navigate("/student-dashboard");
          } else if (role === "coordinator") {
