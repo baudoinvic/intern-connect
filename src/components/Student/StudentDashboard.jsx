@@ -97,14 +97,7 @@ function StudentDashboard() {
         >
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        <div className="flex items-center space-x-3">
-          <img
-            src={studentInfo.image}
-            alt="Profile"
-            className="w-8 h-8 rounded-full bg-gray-200"
-          />
-          <span className="font-semibold">{studentInfo.name}</span>
-        </div>
+      
       </div>
 
       {/* Sidebar */}
@@ -120,15 +113,9 @@ function StudentDashboard() {
         {/* Profile Section */}
         <div className="p-6 border-b hidden md:block">
           <div className="flex items-center space-x-4">
-            <img
-              src={studentInfo.image}
-              alt="Profile"
-              className="w-12 h-12 rounded-full bg-gray-200"
-            />
+           
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">
-                {studentInfo.name}
-              </h2>
+            
               <p className="text-sm text-gray-500">Student</p>
             </div>
           </div>

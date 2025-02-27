@@ -1,3 +1,6 @@
+
+
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -9,23 +12,24 @@ const Apply = () => {
   const [internship, setInternship] = useState({});
   const [formData, setFormData] = useState({
     studentName: "",
-    email: "", // if your API doesn't need email, you can remove it
+    email: "",
     internshipRole: "",
   });
 
   // Fetch internship details
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:3000/api/applications
-/${id}`
-      )
+      .get(`http://localhost:3000/api/internships/${id}`)
       .then((res) => {
+        console.log("Internship Data:", res.data); // Debugging
         setInternship(res.data);
-        setFormData((prev) => ({ ...prev, internshipRole: res.data.title }));
+        setFormData((prev) => ({
+          ...prev,
+          internshipRole: res.data.title || "", // Ensure it's set
+        }));
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Error fetching internship:", err);
         toast.error("Failed to load internship details");
       });
   }, [id]);
@@ -35,15 +39,21 @@ const Apply = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Submit application
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.studentName || !formData.internshipRole) {
+      toast.error("Please fill all required fields!");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:3000/api/applications"
-, formData);
+      console.log("Submitting application:", formData); // Debugging
+      await axios.post("http://localhost:3000/api/applications", formData);
       toast.success("Application submitted successfully!");
     } catch (error) {
-      console.error(error);
+      console.error("Error submitting application:", error.response?.data);
       toast.error("Failed to submit application.");
     }
   };
@@ -72,7 +82,7 @@ const Apply = () => {
             />
           </div>
 
-          {/* Email (Optional) */}
+          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
@@ -96,8 +106,8 @@ const Apply = () => {
               type="text"
               id="internshipRole"
               value={formData.internshipRole}
-    
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100"
+              onChange={handleChange} // Allow editing
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             />
           </div>
 

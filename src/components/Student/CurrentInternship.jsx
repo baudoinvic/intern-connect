@@ -73,13 +73,9 @@ function CurrentInternship() {
         {/* Profile Section */}
         <div className="p-6 border-b hidden md:block">
           <div className="flex items-center space-x-4">
-            <img
-              src={studentInfo.image}
-              alt="Profile"
-              className="w-12 h-12 rounded-full bg-gray-200"
-            />
+          
             <div>
-              <h2 className="text-lg font-semibold text-gray-800">{studentInfo.name}</h2>
+              
               <p className="text-sm text-gray-500">Student</p>
             </div>
           </div>
@@ -148,24 +144,6 @@ function CurrentInternship() {
             </div>
           </div>
 
-          {/* Progress Tracking */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">Progress Tracking</h3>
-            <div className="space-y-4">
-              <p className="flex items-center text-sm text-gray-600">
-                <CheckCircle className="text-green-500 mr-2" />
-                Week 1: Orientation completed.
-              </p>
-              <p className="flex items-center text-sm text-gray-600">
-                <CheckCircle className="text-green-500 mr-2" />
-                Week 2: Project assigned.
-              </p>
-              <p className="flex items-center text-sm text-gray-400">
-                <CheckCircle className="text-gray-300 mr-2" />
-                Week 3: Mid-term progress report (Pending).
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

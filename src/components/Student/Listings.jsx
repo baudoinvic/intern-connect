@@ -153,11 +153,11 @@ function Listings() {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
-        <Link to="/apply">
+        {/* <Link to="/apply">
           <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 mt-16 ml-8">
             Apply for internship
           </button>
-        </Link>
+        </Link> */}
 
         <div className="p-4 md:p-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -183,6 +183,32 @@ function Listings() {
                   </th>
                 </tr>
               </thead>
+              {/* <tbody>
+                {internships.map((internship) => (
+                  <tr className="hover:bg-gray-50" key={internship._id}>
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      {internship.title}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500">
+                      {internship.company}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500">
+                      Available
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500 flex space-x-4">
+                      <Edit
+                        size={20}
+                        className="cursor-pointer text-gray-500 hover:text-blue-600"
+                      />
+                      <CheckCircle
+                        size={20}
+                        className="cursor-pointer text-green-500"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody> */}
+
               <tbody>
                 {internships.map((internship) => (
                   <tr className="hover:bg-gray-50" key={internship._id}>
@@ -204,6 +230,11 @@ function Listings() {
                         size={20}
                         className="cursor-pointer text-green-500"
                       />
+                      <Link to={`/apply/${internship._id}`}>
+                        <button className="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                          Apply
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

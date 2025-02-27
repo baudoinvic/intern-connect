@@ -97,7 +97,7 @@ function App() {
         <Route path="/student/listings" element={<Listings />} />
         <Route path="/student/current" element={<CurrentInternship />} />
         <Route path="/student/applications" element={<Applications />} />
-        <Route path="/apply" element={<Apply />} />
+        <Route path="/apply/:id" element={<Apply />} />
 
         {/*Company (Without Navbar) */}
         <Route path="company/interns" element={<Interns />} />
