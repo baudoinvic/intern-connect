@@ -29,7 +29,9 @@ import {
      useEffect(() => {
        const fetchInternships = async () => {
          try {
-           const response = await fetch("http://localhost:3000/api/posts");
+           const response = await fetch(
+             "http://localhost:3000/api/internships"
+           );
            const data = await response.json();
            setInternships(data);
          } catch (error) {
@@ -61,8 +63,10 @@ import {
          if (response.ok) {
            const data = await response.json();
            setInternships([...internships, data]); // Add the new internship to the state
-           setModalOpen(false); // Close the modal
+           setModalOpen(false); 
+            fetchInternships(); 
             toast.success("Internship added successfully!");
+            
          } else {
            console.error("Error adding internship");
              toast.error("Failed to add internship");
@@ -93,13 +97,12 @@ import {
    
              if (response.ok) {
                toast.success("Internship deleted successfully");
-               fetchInternships(); // Call fetchInternships to update the list
+                fetchInternships(); 
              } else {
                const errorData = await response.json();
                toast.error(errorData.message || "Failed to delete internship");
              }
            } catch (error) {
-             toast.error("Error deleting internship");
              console.error("Delete Error:", error);
            }
          }
