@@ -32,6 +32,7 @@ import Postnewinternship from "./components/Company/Postnewinternship";
 import Create from "./components/Admin/Create";
 import Apply from "./components/Student/Apply";
 import Admin from "./components/Admin/Admin";
+import ViewInstitutions from "./components/Coordinator/ViewInstitutions";
 
 function App() {
   return (
@@ -108,6 +109,7 @@ function App() {
 
         {/* Coordinator Routes (Without Navbar) */}
         <Route path="/coordinator/students" element={<Students />} />
+        <Route path="/coordinator/view" element={<ViewInstitutions />} />
         <Route
           path="/coordinator/opportunities"
           element={<InternshipOpportunitiesPage />}

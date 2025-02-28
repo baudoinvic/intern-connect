@@ -22,8 +22,11 @@ function InternshipOpportunitiesPage() {
       icon: <Briefcase size={20} />,
       path: "/coordinator/opportunities",
     },
-   
-   
+    {
+      name: "Institutions",
+      icon: <Briefcase size={20} />,
+      path: "/coordinator/view",
+    },
   ];
 
   const internshipData = [
