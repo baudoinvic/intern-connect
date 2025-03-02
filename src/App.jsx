@@ -33,6 +33,7 @@ import Create from "./components/Admin/Create";
 import Apply from "./components/Student/Apply";
 import Admin from "./components/Admin/Admin";
 import ViewInstitutions from "./components/Coordinator/ViewInstitutions";
+import Edit from "./components/Admin/Edit";
 
 function App() {
   return (
@@ -82,6 +83,8 @@ function App() {
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/RevenueChart" element={<RevenueChart />} />
         <Route path="admin/Reports" element={<Reports />} />
+        <Route path="/edit/:id" element={<Edit />} />
+
         <Route path="/create" element={<Create />} />
         <Route
           path="/coordinator-dashboard"
