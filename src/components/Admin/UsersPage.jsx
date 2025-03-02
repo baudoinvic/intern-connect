@@ -91,7 +91,6 @@ const UsersPage = () => {
           sidebarOpen ? "w-64" : "w-16"
         } bg-white border-r border-gray-200 transition-all duration-300`}
       >
-     
         <nav className="mt-4">
           <ul className="space-y-2">
             {menuItems.map((item, index) => (
@@ -150,9 +149,14 @@ const UsersPage = () => {
                     {user.email}
                   </td>
                   <td className="px-6 py-4 text-sm flex space-x-2">
-                    <button className="text-blue-600 hover:text-blue-800">
+                    {/* <button className="text-blue-600 hover:text-blue-800">
                       <Edit size={18} />
-                    </button>
+                    </button> */}
+                    <Link to="/Edit/${user._id}">
+                      <button className="text-blue-600 hover:text-blue-800">
+                        <Edit size={18} />
+                      </button>
+                    </Link>
                     <button
                       className="text-red-600 hover:text-red-800 cursor-pointer"
                       onClick={() => handleDeleteUser(user._id)}
