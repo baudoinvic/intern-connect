@@ -149,14 +149,19 @@ const UsersPage = () => {
                     {user.email}
                   </td>
                   <td className="px-6 py-4 text-sm flex space-x-2">
-                    {/* <button className="text-blue-600 hover:text-blue-800">
-                      <Edit size={18} />
-                    </button> */}
+                    {/*                    
                     <Link to="/Edit/${user._id}">
                       <button className="text-blue-600 hover:text-blue-800">
                         <Edit size={18} />
                       </button>
+                    </Link> */}
+
+                    <Link to={`/Edit/${user._id}`}>
+                      <button className="text-blue-600 hover:text-blue-800">
+                        <Edit size={18} />
+                      </button>
                     </Link>
+
                     <button
                       className="text-red-600 hover:text-red-800 cursor-pointer"
                       onClick={() => handleDeleteUser(user._id)}
