@@ -73,7 +73,7 @@ const Edit = () => {
         console.log(response);
         toast.success("user is successfully edited");
         setTimeout(() => {
-          navigate("/Admindashboard/Dashboard/Users");
+          navigate("/Admin/Users");
         }, 3000);
       })
 
