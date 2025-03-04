@@ -20,7 +20,7 @@ const Application = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/applications")
+      .get("http://localhost:4000/api/applications")
       .then((res) => setApplications(res.data))
       .catch((err) => console.error("Error fetching applications:", err));
   }, []);

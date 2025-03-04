@@ -15,7 +15,7 @@ function CurrentInternship() {
     const fetchInternships = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/internships"
+          "http://localhost:4000/api/internships"
         );
         setInternships(response.data);
       } catch (error) {

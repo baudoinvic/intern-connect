@@ -19,7 +19,7 @@ function InternshipOpportunitiesPage() {
   const [internships, setInternships] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/internships") 
+    fetch("http://localhost:4000/api/internships") 
       .then((res) => res.json())
       .then((data) => setInternships(data))
       .catch((error) => console.error("Error fetching internships:", error));

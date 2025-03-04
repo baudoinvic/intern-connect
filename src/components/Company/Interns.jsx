@@ -25,7 +25,7 @@ function Interns() {
   useEffect(() => {
     const fetchInternships = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/internships");
+        const response = await fetch("http://localhost:4000/api/internships");
         const data = await response.json();
         setInternships(data);
       } catch (error) {

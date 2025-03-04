@@ -16,7 +16,7 @@ function StudentsPage() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/applications") // Replace with your actual API URL
+    fetch("http://localhost:4000/api/applications") // Replace with your actual API URL
       .then((res) => res.json())
       .then((data) => {
         // Group applications by student

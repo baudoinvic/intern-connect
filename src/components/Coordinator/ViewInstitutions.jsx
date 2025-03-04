@@ -9,7 +9,7 @@ const ViewInstitutions = () => {
   const [institutions, setInstitutions] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/institutions")
+    fetch("http://localhost:4000/api/institutions")
       .then((response) => response.json())
       .then((data) => setInstitutions(data))
       .catch((error) => console.error("Error fetching institutions:", error));

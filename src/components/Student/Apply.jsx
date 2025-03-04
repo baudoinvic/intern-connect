@@ -19,7 +19,7 @@ const Apply = () => {
   // Fetch internship details
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/internships/${id}`)
+      .get(`http://localhost:4000/api/internships/${id}`)
       .then((res) => {
         console.log("Internship Data:", res.data); // Debugging
         setInternship(res.data);
@@ -50,7 +50,7 @@ const Apply = () => {
 
     try {
       console.log("Submitting application:", formData); // Debugging
-      await axios.post("http://localhost:3000/api/applications", formData);
+      await axios.post("http://localhost:4000/api/applications", formData);
       toast.success("Application submitted successfully!");
     } catch (error) {
       console.error("Error submitting application:", error.response?.data);

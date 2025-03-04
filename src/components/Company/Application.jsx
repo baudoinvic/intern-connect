@@ -15,7 +15,7 @@ const Application = () => {
     const fetchApplications = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/applications"
+          "http://localhost:4000/api/applications"
         );
         setApplications(response.data);
       } catch (error) {
@@ -28,7 +28,7 @@ const Application = () => {
 
   const handleStatusChange = async (id, status) => {
    try {
-  await axios.put(`http://localhost:3000/api/applications/${id}/status`, { status });
+  await axios.put(`http://localhost:4000/api/applications/${id}/status`, { status });
   setApplications((prev) =>
     prev.map((app) => (app._id === id ? { ...app, status } : app))
   );
