@@ -43,7 +43,7 @@ function SignupPage() {
       e.preventDefault();
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/auth/register",
+          "http://localhost:4000/api/auth/register",
           formData
         );
         console.log("Response Data:", response.data);

@@ -62,7 +62,7 @@ const Edit = () => {
 
     axios({
       method: "PUT",
-      url: `http://localhost:3000/api/users/${id}`,
+      url: `http://localhost:4000/api/users/${userId}`,
       data: data,
       headers: {
         "Content-Type": "application/json",

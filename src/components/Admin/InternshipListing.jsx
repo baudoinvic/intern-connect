@@ -30,7 +30,7 @@ import {
        const fetchInternships = async () => {
          try {
            const response = await fetch(
-             "http://localhost:3000/api/internships"
+             "http://localhost:4000/api/internships"
            );
            const data = await response.json();
            setInternships(data);
@@ -52,7 +52,7 @@ import {
        };
    
        try {
-         const response = await fetch("http://localhost:3000/api/internships", {
+         const response = await fetch("http://localhost:4000/api/internships", {
            method: "POST",
            headers: {
              "Content-Type": "application/json",
@@ -85,7 +85,7 @@ import {
    
            try {
              const response = await fetch(
-               `http://localhost:3000/api/internships/${id}`,
+               `http://localhost:4000/api/internships/${id}`,
                {
                  method: "DELETE",
                  headers: {

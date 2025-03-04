@@ -23,7 +23,7 @@ const UsersPage = () => {
   const fetchUsers = () => {
     let token = localStorage.getItem("token");
     axios({
-      url: "http://localhost:3000/api/users",
+      url: "http://localhost:4000/api/users",
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ const UsersPage = () => {
     if (window.confirm("Are you sure you want to delete?")) {
       let token = localStorage.getItem("token");
       axios({
-        url: `http://localhost:3000/api/users/${id}`,
+        url: `http://localhost:4000/api/users/${id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
