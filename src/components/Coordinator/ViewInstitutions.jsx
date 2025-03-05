@@ -2,17 +2,26 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Users, Briefcase, LayoutDashboard } from "lucide-react";
+import axios from "axios";
 
 const ViewInstitutions = () => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [institutions, setInstitutions] = useState([]);
+   const [internships, setInternships] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/institutions")
-      .then((response) => response.json())
-      .then((data) => setInstitutions(data))
-      .catch((error) => console.error("Error fetching institutions:", error));
+    const fetchInternships = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/internships"
+        );
+        setInternships(response.data);
+      } catch (error) {
+        console.error("Error fetching internships:", error);
+      }
+    };
+
+    fetchInternships();
   }, []);
 
   const menuItems = [
@@ -80,31 +89,45 @@ const ViewInstitutions = () => {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto pt-16 lg:pt-0 p-4 md:p-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Institutions
-        </h2>
-        <div className="bg-white rounded-lg shadow-md p-6">
-          {institutions.length > 0 ? (
-            <ul className="space-y-4">
-              {institutions.map((institution) => (
-                <li
-                  key={institution._id}
-                  className="p-4 border-b border-gray-200"
+      
+      
+         <div className="flex-1 overflow-auto">
+        <div className="p-4 md:p-8">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Institutions
+          </h2>
+
+          {/* Internship List */}
+          {internships.length > 0 ? (
+            <div className="space-y-4">
+              {internships.map((internship) => (
+                <div
+                  key={internship._id}
+                  className="bg-white rounded-lg shadow-md p-6"
                 >
-                  <h3 className="text-lg font-semibold">{institution.name}</h3>
-                  <p className="text-gray-600">
-                    {institution.type} - {institution.location}
+                  <h3 className="text-lg font-semibold text-gray-700">
+                    {internship.title}
+                  </h3>
+                  <p>
+                    <span className="font-medium text-gray-600">Company:</span>{" "}
+                    {internship.company}
                   </p>
-                  <p className="text-gray-500 text-sm">
-                    Students: {institution.numberOfStudents}
+                  <p>
+                    <span className="font-medium text-gray-600">Location:</span>{" "}
+                    {internship.location}
                   </p>
-                </li>
+                  <p>
+                    <span className="font-medium text-gray-600">Duration:</span>{" "}
+                    {internship.duration}
+                  </p>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
-            <p className="text-gray-600">No institutions available.</p>
+            <p className="text-gray-600">No internships available.</p>
           )}
         </div>
+      </div>
       </div>
     </div>
   );
