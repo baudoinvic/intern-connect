@@ -11,6 +11,9 @@ import {
   Users,
   Settings,
 } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 function CompaniesDashboard() {
   const navigate = useNavigate();
@@ -40,9 +43,37 @@ function CompaniesDashboard() {
     
   ];
 
-  const handleLogout = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.warn("No token found, user already logged out.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "http://localhost:4000/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("user");
+
+      toast.success("Logout successful!");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    } catch (error) {
+      console.error("Logout failed", error);
+      toast.error("Logout failed. Please try again.");
+    }
   };
+
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -76,6 +107,7 @@ function CompaniesDashboard() {
         </nav>
 
         <div className="" style={{ marginTop: "27rem" }}>
+          
           <button
             onClick={handleLogout}
             className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
@@ -83,6 +115,7 @@ function CompaniesDashboard() {
             <LogOut size={20} />
             <span className="ml-3">Logout</span>
           </button>
+          <ToastContainer />
         </div>
       </div>
 

@@ -14,6 +14,9 @@ import {
   X,
 } from "lucide-react";
 import RevenueChart from "./Chart";
+  import { ToastContainer, toast } from "react-toastify";
+  import "react-toastify/dist/ReactToastify.css";
+  import axios from 'axios';
 
 const Admin = () => {
 
@@ -66,9 +69,37 @@ const Admin = () => {
         },
       ];
     
-      const handleLogout = () => {
-        navigate("/");
-      };
+         const handleLogout = async () => {
+           const token = localStorage.getItem("token");
+
+           if (!token) {
+             console.warn("No token found, user already logged out.");
+             navigate("/login");
+             return;
+           }
+
+           try {
+             await axios.post(
+               "http://localhost:4000/api/auth/logout",
+               {},
+               { headers: { Authorization: `Bearer ${token}` } }
+             );
+
+             localStorage.removeItem("token");
+             localStorage.removeItem("role");
+             localStorage.removeItem("user");
+
+             toast.success("Logout successful!");
+
+             setTimeout(() => {
+               navigate("/login");
+             }, 3000);
+           } catch (error) {
+             console.error("Logout failed", error);
+             toast.error("Logout failed. Please try again.");
+           }
+         };
+   
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
       {/* Mobile Sidebar Overlay */}
@@ -126,6 +157,7 @@ const Admin = () => {
               <span className="ml-3">Logout</span>
             </button>
           </div>
+          <ToastContainer />
         </nav>
       </div>
 

@@ -17,6 +17,9 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CoordinatorDashboard() {
   const navigate = useNavigate();
@@ -103,9 +106,36 @@ function CoordinatorDashboard() {
     }
   ];
 
-  const handleLogout = () => {
-    navigate("/");
-  };
+   const handleLogout = async () => {
+     const token = localStorage.getItem("token");
+
+     if (!token) {
+       console.warn("No token found, user already logged out.");
+       navigate("/login");
+       return;
+     }
+
+     try {
+       await axios.post(
+         "http://localhost:4000/api/auth/logout",
+         {},
+         { headers: { Authorization: `Bearer ${token}` } }
+       );
+
+       localStorage.removeItem("token");
+       localStorage.removeItem("role");
+       localStorage.removeItem("user");
+
+       toast.success("Logout successful!");
+
+       setTimeout(() => {
+         navigate("/login");
+       }, 3000);
+     } catch (error) {
+       console.error("Logout failed", error);
+       toast.error("Logout failed. Please try again.");
+     }
+   };
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
@@ -178,6 +208,7 @@ function CoordinatorDashboard() {
                       <LogOut size={20} />
                       <span className="ml-3">Logout</span>
                     </button>
+                    <ToastContainer />
                   </div>
         </nav>
       </div>

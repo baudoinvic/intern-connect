@@ -14,6 +14,9 @@ import {
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import profileImage from "../../assets/images/DSC_1168.JPG";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 function StudentDashboard() {
   const navigate = useNavigate();
@@ -79,9 +82,39 @@ function StudentDashboard() {
     }
   ];
 
-  const handleLogout = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.warn("No token found, user already logged out.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "http://localhost:4000/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("user");
+
+      toast.success("Logout successful!");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000); 
+    } catch (error) {
+      console.error("Logout failed", error);
+      toast.error("Logout failed. Please try again.");
+    }
   };
+
+
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -97,7 +130,6 @@ function StudentDashboard() {
         >
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-      
       </div>
 
       {/* Sidebar */}
@@ -113,9 +145,7 @@ function StudentDashboard() {
         {/* Profile Section */}
         <div className="p-6 border-b hidden md:block">
           <div className="flex items-center space-x-4">
-           
             <div>
-            
               <p className="text-sm text-gray-500">Student</p>
             </div>
           </div>
@@ -142,7 +172,7 @@ function StudentDashboard() {
               <ChevronRight size={16} className="text-gray-400" />
             </Link>
           ))}
-          <div className="" style={{marginTop: "24rem"}}>
+          <div className="" style={{ marginTop: "24rem" }}>
             <button
               onClick={handleLogout}
               className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
@@ -150,6 +180,7 @@ function StudentDashboard() {
               <LogOut size={20} />
               <span className="ml-3">Logout</span>
             </button>
+            <ToastContainer />
           </div>
         </nav>
       </div>
