@@ -31,7 +31,7 @@ function StudentDashboard() {
     { name: "Internship Listings", icon: <Briefcase size={20} />, path: "/student/listings" },
     { name: "Applications", icon: <FileText size={20} />, path: "/student/applications" },
     { name: "Current Internship", icon: <Clock size={20} />, path: "/student/current" },
-    { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
+   
   ];
 
   const statsCards = [

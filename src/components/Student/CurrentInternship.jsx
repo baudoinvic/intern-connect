@@ -42,7 +42,7 @@ function CurrentInternship() {
       icon: <FileText size={20} />,
       path: "/student/applications",
     },
-    { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
+   
   ];
 
   return (

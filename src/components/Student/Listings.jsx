@@ -44,16 +44,14 @@ function Listings() {
       icon: <Clock size={20} />,
       path: "/student/current",
     },
-    { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
+   
   ];
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleLogout = () => {
-    navigate("/");
-  };
+ 
 
   useEffect(() => {
     // Fetch the internship listings from the backend

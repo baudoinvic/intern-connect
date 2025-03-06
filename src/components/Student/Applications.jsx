@@ -28,7 +28,7 @@ function ApplicationsPage() {
       icon: <Clock size={20} />,
       path: "/student/current",
     },
-    { name: "Notifications", icon: <Bell size={20} />, path: "", badge: 3 },
+
   ];
 
   useEffect(() => {
