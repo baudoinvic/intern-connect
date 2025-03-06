@@ -17,13 +17,88 @@ import RevenueChart from "./Chart";
   import { ToastContainer, toast } from "react-toastify";
   import "react-toastify/dist/ReactToastify.css";
   import axios from 'axios';
+  import { useEffect } from 'react';
 
 const Admin = () => {
+         
+      const [users, setUsers] = useState([]);
+      const [institutions, setInstitutions] = useState([]);
+      const [internships, setInternships] = useState([]);
 
       const navigate = useNavigate();
       const location = useLocation();
       const [sidebarOpen, setSidebarOpen] = useState(false);
-      const [activePage, setActivePage] = useState(location.pathname); // Track active page
+      const [activePage, setActivePage] = useState(location.pathname); 
+
+
+      const fetchUsers = () => {
+        let token = localStorage.getItem("token");
+        axios({
+          url: "http://localhost:4000/api/users",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            const allUsers = response.data;
+            setUsers(allUsers);
+            toast.success(response.data.message);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
+      useEffect(() => {
+        fetchUsers();
+      }, []);
+
+      const fetchInstitutions = () => {
+        let token = localStorage.getItem("token");
+        axios({
+          url: "http://localhost:4000/api/institutions",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            const allInstitutions = response.data;
+            setInstitutions(allInstitutions);
+            toast.success(response.data.message);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
+      useEffect(() => {
+        fetchInstitutions();
+      }, []);
+
+         const fetchInternships = () => {
+           let token = localStorage.getItem("token");
+           axios({
+             url: "http://localhost:4000/api/users",
+             method: "GET",
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           })
+             .then((response) => {
+               const allInternships = response.data;
+               setInternships(allInternships);
+               toast.success(response.data.message);
+             })
+             .catch((error) => {
+               console.log(error);
+             });
+         };
+
+         useEffect(() => {
+           fetchInternships();
+         }, []);
     
       const menuItems = [
         { name: "Dashboard",icon: <LayoutDashboard size={20} />, path: "/admin/dashboard" },
@@ -42,32 +117,34 @@ const Admin = () => {
       
       ];
     
+
       const statsCards = [
         {
           title: "Total Users",
-          count: "1,234",
+          count: users.length, 
           icon: <Users size={24} />,
           color: "bg-blue-500",
         },
         {
           title: "Institutions",
-          count: "56",
+          count: institutions.length, 
           icon: <Building2 size={24} />,
           color: "bg-green-500",
         },
         {
           title: "Active Internships",
-          count: "89",
+          count: internships.length, 
           icon: <Briefcase size={24} />,
           color: "bg-purple-500",
         },
-        {
-          title: "Subscribers",
-          count: "432",
-          icon: <CreditCard size={24} />,
-          color: "bg-orange-500",
-        },
+          {
+            title: "Subscribers",
+            count: "12",
+            icon: <CreditCard size={24} />,
+            color: "bg-orange-500",
+          },
       ];
+
     
          const handleLogout = async () => {
            const token = localStorage.getItem("token");

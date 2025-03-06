@@ -3,8 +3,85 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
-
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 const RevenueChart = () => {
+
+      const [users, setUsers] = useState([]);
+         const [institutions, setInstitutions] = useState([]);
+         const [internships, setInternships] = useState([]);
+
+        const fetchUsers = () => {
+          let token = localStorage.getItem("token");
+          axios({
+            url: "http://localhost:4000/api/users",
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => {
+              const allUsers = response.data;
+              setUsers(allUsers);
+              toast.success(response.data.message);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        };
+
+        useEffect(() => {
+          fetchUsers();
+        }, []);
+
+        const fetchInstitutions = () => {
+          let token = localStorage.getItem("token");
+          axios({
+            url: "http://localhost:4000/api/institutions",
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => {
+              const allInstitutions = response.data;
+              setInstitutions(allInstitutions);
+              toast.success(response.data.message);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        };
+
+        useEffect(() => {
+          fetchInstitutions();
+        }, []);
+
+        const fetchInternships = () => {
+          let token = localStorage.getItem("token");
+          axios({
+            url: "http://localhost:4000/api/users",
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => {
+              const allInternships = response.data;
+              setInternships(allInternships);
+              toast.success(response.data.message);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        };
+
+        useEffect(() => {
+          fetchInternships();
+        }, []);
+
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -97,12 +174,17 @@ const RevenueChart = () => {
         <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">
           Key Metrics
         </h2>
+       
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { title: "Institutions", value: "56" },
-            { title: "Total users", value: "125" },
-            { title: "Active internships", value: "89" },
-            { title: "Total students", value: "12" },
+            { title: "Institutions", value: institutions.length },
+            { title: "Total users", value: users.length },
+            { title: "Active internships", value: internships.length },
+            {
+              title: "Total students",
+              value: users.filter((user) => user.role === "student").length,
+            },
           ].map((metric, index) => (
             <div key={index} className="bg-gray-100 rounded-lg p-4">
               <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2">
