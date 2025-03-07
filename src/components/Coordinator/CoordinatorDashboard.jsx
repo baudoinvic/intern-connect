@@ -20,10 +20,40 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useEffect } from "react";
 function CoordinatorDashboard() {
+
+  
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+   
+   useEffect(() => {
+     const fetchUser = async () => {
+       try {
+         const token = localStorage.getItem("token");
+         if (!token) {
+           console.error("No token found");
+           console.log("response", response);
+           return;
+         }
+
+         const response = await axios.get("http://localhost:4000/api/me", {
+           headers: {
+             Authorization: `Bearer ${token}`,
+           },
+         });
+
+         setUser(response.data);
+       } catch (error) {
+         console.error("Error fetching user:", error);
+       }
+     };
+
+     fetchUser();
+   }, []);
+  
+
 
   const menuItems = [
     {
@@ -155,8 +185,8 @@ function CoordinatorDashboard() {
         >
           <Menu size={24} />
         </button>
-        <h1 className="text-xl font-bold text-gray-800">Coordinator Portal</h1>
-        <div className="w-8" /> {/* Placeholder for balance */}
+
+        {/* <h1 className="text-xl font-bold text-gray-800">Coordinator Portal</h1> */}
       </div>
 
       {/* Sidebar */}
@@ -169,10 +199,16 @@ function CoordinatorDashboard() {
         w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out
       `}
       >
-        <div className="flex items-center justify-between h-16 border-b px-6">
+        <div className=" items-center justify-between h-16 border-b px-6">
           <h1 className="text-xl font-bold text-gray-800">
-            Coordinator Portal
+            Coordinator 
           </h1>
+         
+            
+            <div>
+              <p>{user ? user.email : "Loading..."}</p>
+            </div>
+         
           <button
             onClick={() => setSidebarOpen(false)}
             className="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden"
@@ -200,16 +236,16 @@ function CoordinatorDashboard() {
               <ChevronRight size={16} className="text-gray-400" />
             </Link>
           ))}
-          <div className="" style={{marginTop: "24rem"}}>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
-                    >
-                      <LogOut size={20} />
-                      <span className="ml-3">Logout</span>
-                    </button>
-                    <ToastContainer />
-                  </div>
+          <div className="" style={{ marginTop: "24rem" }}>
+            <button
+              onClick={handleLogout}
+              className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
+            >
+              <LogOut size={20} />
+              <span className="ml-3">Logout</span>
+            </button>
+            <ToastContainer />
+          </div>
         </nav>
       </div>
 
@@ -318,8 +354,6 @@ function CoordinatorDashboard() {
               </div>
             </div>
           </div>
-
-        
         </div>
       </div>
     </div>
