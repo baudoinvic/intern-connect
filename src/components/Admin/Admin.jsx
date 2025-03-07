@@ -24,11 +24,41 @@ const Admin = () => {
       const [users, setUsers] = useState([]);
       const [institutions, setInstitutions] = useState([]);
       const [internships, setInternships] = useState([]);
-
+     const [user, setUser] = useState(null);
       const navigate = useNavigate();
       const location = useLocation();
       const [sidebarOpen, setSidebarOpen] = useState(false);
       const [activePage, setActivePage] = useState(location.pathname); 
+
+
+
+         useEffect(() => {
+             const fetchUser = async () => {
+               try {
+                 const token = localStorage.getItem("token");
+                 if (!token) {
+                   console.error("No token found");
+                   console.log("response", response)
+                   return;
+                 }
+      
+                 const response = await axios.get(
+                   "http://localhost:4000/api/me",
+                   {
+                     headers: {
+                       Authorization: `Bearer ${token}`,
+                     },
+                   }
+                 );
+      
+                 setUser(response.data);
+               } catch (error) {
+                 console.error("Error fetching user:", error);
+               }
+             };
+      
+             fetchUser();
+           }, []);
 
 
       const fetchUsers = () => {
@@ -193,8 +223,13 @@ const Admin = () => {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:relative lg:translate-x-0 w-64 bg-white shadow-lg z-30 transition-transform duration-200 ease-in-out`}
       >
-        <div className="flex items-center justify-between h-16 border-b px-6">
-          <h1 className="text-xl font-bold text-gray-800">Admin Portal</h1>
+        <div className="items-center justify-between h-16 border-b px-6 text-gray-600">
+           <div>
+             <p>Admin</p>
+           </div>
+          <div>
+            <p>{user ? user.email : "Loading..."}</p>
+          </div>
           <button
             onClick={() => setSidebarOpen(false)}
             className="p-2 rounded-md text-gray-600 hover:bg-gray-100 lg:hidden"

@@ -17,10 +17,44 @@ import profileImage from "../../assets/images/DSC_1168.JPG";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useEffect } from "react";
 
 function StudentDashboard() {
+
+  const [user, setUser] = useState(null);
+  
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+     useEffect(() => {
+       const fetchUser = async () => {
+         try {
+           const token = localStorage.getItem("token");
+           if (!token) {
+             console.error("No token found");
+             console.log("response", response)
+             return;
+           }
+
+           const response = await axios.get(
+             "http://localhost:4000/api/me",
+             {
+               headers: {
+                 Authorization: `Bearer ${token}`,
+               },
+             }
+           );
+
+           setUser(response.data);
+         } catch (error) {
+           console.error("Error fetching user:", error);
+         }
+       };
+
+       fetchUser();
+     }, []);
+
+
 
   const studentInfo = {
     name: "William",
@@ -145,8 +179,13 @@ function StudentDashboard() {
         {/* Profile Section */}
         <div className="p-6 border-b hidden md:block">
           <div className="flex items-center space-x-4">
+         
             <div>
               <p className="text-sm text-gray-500">Student</p>
+              <div>
+              
+                <p>{user ? user.email : "Loading..."}</p>
+              </div>
             </div>
           </div>
         </div>

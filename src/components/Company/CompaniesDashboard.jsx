@@ -14,8 +14,42 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useEffect } from "react";
 
 function CompaniesDashboard() {
+     
+       const [user, setUser] = useState(null);
+   
+        useEffect(() => {
+          const fetchUser = async () => {
+            try {
+              const token = localStorage.getItem("token");
+              if (!token) {
+                console.error("No token found");
+                console.log("response", response)
+                return;
+              }
+   
+              const response = await axios.get(
+                "http://localhost:4000/api/me",
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+   
+              setUser(response.data);
+            } catch (error) {
+              console.error("Error fetching user:", error);
+            }
+          };
+   
+          fetchUser();
+        }, []);
+
+
+
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -83,8 +117,11 @@ function CompaniesDashboard() {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:relative md:translate-x-0`}
       >
-        <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold">Company Panel</h2>
+        <div className=" items-center justify-between p-4 border-b">
+          <h2 className="text-lg font-semibold">Company </h2>
+          <div>
+            <p>{user ? user.email : "Loading..."}</p>
+          </div>
           <button
             className="md:hidden text-gray-600 hover:text-gray-800"
             onClick={() => setSidebarOpen(false)}
@@ -107,7 +144,6 @@ function CompaniesDashboard() {
         </nav>
 
         <div className="" style={{ marginTop: "27rem" }}>
-          
           <button
             onClick={handleLogout}
             className="flex items-center w-full px-6 py-3 mt-4 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200"
@@ -135,8 +171,6 @@ function CompaniesDashboard() {
             <h1 className="text-2xl font-semibold text-gray-800">
               Company Dashboard
             </h1>
-
-           
           </div>
         </header>
 
