@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const Postnewinternship = () => {
@@ -71,6 +72,9 @@ const Postnewinternship = () => {
           institutionName: "", // Reset new field
           fieldOfStudy: "", // Reset new field
         });
+         setTimeout(() => {
+           navigate("/company/Dash");
+         }, 4000);
       } else {
         toast.error("Failed to post internship. Please try again.");
       }

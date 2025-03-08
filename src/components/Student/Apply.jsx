@@ -1,13 +1,14 @@
 
-
-
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Apply = () => {
+
+   const navigate = useNavigate();
+
   const { id } = useParams();
   const [internship, setInternship] = useState({});
   const [formData, setFormData] = useState({
@@ -18,30 +19,29 @@ const Apply = () => {
     fieldOfStudy: "", 
   });
 
-  // Fetch internship details
+  
   useEffect(() => {
     axios
       .get(`http://localhost:4000/api/internships/${id}`)
       .then((res) => {
-        console.log("Internship Data:", res.data); // Debugging
+        console.log("Internship Data:", res.data); 
         setInternship(res.data);
         setFormData((prev) => ({
           ...prev,
-          internshipRole: res.data.title || "", // Ensure it's set
+          internshipRole: res.data.title || "", 
         }));
       })
       .catch((err) => {
         console.error("Error fetching internship:", err);
-        toast.error("Failed to load internship details");
+        // toast.error("Failed to load internship details");
       });
   }, [id]);
 
-  // Handle input change
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,6 +59,13 @@ const Apply = () => {
       console.log("Submitting application:", formData); // Debugging
       await axios.post("http://localhost:4000/api/applications", formData);
       toast.success("Application submitted successfully!");
+
+
+         setTimeout(() => {
+           navigate("/student-dashboard");
+         }, 4000);
+
+
     } catch (error) {
       console.error("Error submitting application:", error.response?.data);
       toast.error("Failed to submit application.");
@@ -103,8 +110,6 @@ const Apply = () => {
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
             />
           </div>
-
-          {/* Internship Role (Auto-filled) */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Internship Role
@@ -113,12 +118,11 @@ const Apply = () => {
               type="text"
               id="internshipRole"
               value={formData.internshipRole}
-              onChange={handleChange} // Allow editing
+              onChange={handleChange} 
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             />
           </div>
 
-          {/* Institution Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Institution Name
@@ -133,8 +137,6 @@ const Apply = () => {
               required
             />
           </div>
-
-          {/* Field of Study */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Field of Study
@@ -149,8 +151,6 @@ const Apply = () => {
               required
             />
           </div>
-
-          {/* Submit Button */}
           <div className="flex justify-end">
             <button
               type="submit"
