@@ -138,9 +138,9 @@ const Application = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
-                        <button className="bg-blue-500 text-white px-3 py-1 rounded">
+                        {/* <button className="bg-blue-500 text-white px-3 py-1 rounded">
                           View
-                        </button>
+                        </button> */}
                         <button
                           onClick={() =>
                             handleStatusChange(app._id, "Accepted")

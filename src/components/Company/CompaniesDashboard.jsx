@@ -17,9 +17,34 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function CompaniesDashboard() {
-     
+       const [internships, setInternships] = useState([]);
        const [user, setUser] = useState(null);
-   
+        
+        const fetchInternships = () => {
+          let token = localStorage.getItem("token");
+          axios({
+            url: "http://localhost:4000/api/internships",
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => {
+              const allInternships = response.data;
+              setInternships(allInternships);
+              toast.success(response.data.message);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        };
+
+        useEffect(() => {
+          fetchInternships();
+        }, []);
+
+
+        
         useEffect(() => {
           const fetchUser = async () => {
             try {
@@ -181,7 +206,7 @@ function CompaniesDashboard() {
               <p className="text-sm font-medium text-gray-500">
                 Active Internships
               </p>
-              <p className="text-2xl font-semibold text-gray-800">2</p>
+              <p className="text-xl font-bold">{internships.length}</p>
             </div>
             <div className="bg-white rounded-lg shadow p-6">
               <p className="text-sm font-medium text-gray-500">
@@ -193,7 +218,8 @@ function CompaniesDashboard() {
               <p className="text-sm font-medium text-gray-500">
                 Current Interns
               </p>
-              <p className="text-2xl font-semibold text-gray-800">5</p>
+              <p className="text-xl font-bold">{internships.length}</p>
+              {/* <p className="text-2xl font-semibold text-gray-800">5</p> */}
             </div>
           </div>
 
