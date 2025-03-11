@@ -100,8 +100,8 @@ export default function ReportsPage() {
         </div>
         <div className="bg-white shadow rounded-lg p-6 mt-6">
           <h2 className="text-xl font-semibold mb-4">Internship Progress</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart
+          <ResponsiveContainer  width="100%"  height={300}>
+            <BarChart className=""
               data={[
                 { name: "Completed", students: 120 },
                 { name: "Ongoing", students: 80 },

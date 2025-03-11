@@ -1,16 +1,14 @@
 
+
 import React, { useState, useEffect } from "react";
 import { Bell, Briefcase, Clock, LayoutDashboard } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-
 function ApplicationsPage() {
-  const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
 
-  
-  const studentName = "Sophia Esther"; 
+  const studentName = "Sophia Esther";
 
   const menuItems = [
     {
@@ -28,27 +26,28 @@ function ApplicationsPage() {
       icon: <Clock size={20} />,
       path: "/student/current",
     },
-
   ];
 
+ 
   useEffect(() => {
     axios
       .get("http://localhost:4000/api/applications")
       .then((res) => {
+        console.log("API Response:", res.data); // Debugging log
         const filteredApplications = res.data.filter(
           (app) => app.studentName.toLowerCase() === studentName.toLowerCase()
         );
         setApplications(filteredApplications);
       })
       .catch((err) => console.error("Error fetching applications:", err));
-  }, [studentName]);
+  }, []);
+
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg p-6">
         <div className="flex items-center space-x-4 mb-6">
-        
           <div>
             <h2 className="text-lg font-semibold text-gray-800">
               {studentName}
@@ -82,6 +81,8 @@ function ApplicationsPage() {
             <thead className="bg-gray-100">
               <tr>
                 <th className="text-left py-2 px-4">Internship Role</th>
+                <th className="text-left py-2 px-4">Institution Name</th>
+                <th className="text-left py-2 px-4">Field of Study</th>
                 <th className="text-left py-2 px-4">Status</th>
                 <th className="text-left py-2 px-4">Date Applied</th>
               </tr>
@@ -91,6 +92,8 @@ function ApplicationsPage() {
                 applications.map((app, index) => (
                   <tr key={index} className="border-t hover:bg-gray-50">
                     <td className="py-2 px-4">{app.internshipRole}</td>
+                    <td className="py-2 px-4">{app.institutionName}</td>
+                    <td className="py-2 px-4">{app.fieldOfStudy}</td>
                     <td className="py-2 px-4">
                       <span
                         className={`px-2 py-1 rounded-full text-white text-xs ${
@@ -111,7 +114,7 @@ function ApplicationsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" className="py-4 text-center text-gray-500">
+                  <td colSpan="5" className="py-4 text-center text-gray-500">
                     No applications found
                   </td>
                 </tr>
