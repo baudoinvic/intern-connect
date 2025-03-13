@@ -95,7 +95,7 @@ function CompaniesDashboard() {
       path: "/company/application",
     },
     {
-      name: "Pending Approvals",
+      name: "Application Status",
       icon: <Users size={20} />,
       path: "/companies/approvals",
     },

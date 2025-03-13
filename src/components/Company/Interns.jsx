@@ -1,4 +1,3 @@
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -58,48 +57,45 @@ function Interns() {
         const data = await response.json();
         setInternships([...internships, data]); // Add the new internship to the state
         setModalOpen(false); // Close the modal
-         toast.success("Internship added successfully!");
+        toast.success("Internship added successfully!");
       } else {
         console.error("Error adding internship");
-          toast.error("Failed to add internship");
+        toast.error("Failed to add internship");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-   
+  const handleDeleteInternship = async (id) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      let token = localStorage.getItem("token");
 
-    const handleDeleteInternship = async (id) => {
-    
-      if (window.confirm("Are you sure you want to delete?")) {
-        let token = localStorage.getItem("token");
-
-        try {
-          const response = await fetch(
-            `http://localhost:3000/api/internships/${id}`,
-            {
-              method: "DELETE",
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-
-          if (response.ok) {
-            toast.success("Internship deleted successfully");
-            fetchInternships(); // Call fetchInternships to update the list
-          } else {
-            const errorData = await response.json();
-            toast.error(errorData.message || "Failed to delete internship");
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/internships/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           }
-        } catch (error) {
-          toast.error("Error deleting internship");
-          console.error("Delete Error:", error);
+        );
+
+        if (response.ok) {
+          toast.success("Internship deleted successfully");
+          fetchInternships(); // Call fetchInternships to update the list
+        } else {
+          const errorData = await response.json();
+          toast.error(errorData.message || "Failed to delete internship");
         }
+      } catch (error) {
+        toast.error("Error deleting internship");
+        console.error("Delete Error:", error);
       }
-    };
+    }
+  };
 
   const menuItems = [
     {
@@ -118,7 +114,7 @@ function Interns() {
       path: "/company/application",
     },
     {
-      name: "Pending Approvals",
+      name: "Application Status",
       icon: <Users size={20} />,
       path: "/company/pending",
     },
@@ -323,4 +319,3 @@ function Interns() {
 }
 
 export default Interns;
-

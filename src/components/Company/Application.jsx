@@ -1,4 +1,3 @@
-
 import { Home, List, FileText, Users, Menu, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,17 +26,19 @@ const Application = () => {
   }, []);
 
   const handleStatusChange = async (id, status) => {
-   try {
-  await axios.put(`http://localhost:4000/api/applications/${id}/status`, { status });
-  setApplications((prev) =>
-    prev.map((app) => (app._id === id ? { ...app, status } : app))
-  );
-  toast.success(`Application ${status}`);
-} catch (error) {
-  console.error("Error updating status:", error);
-  toast.error("Failed to update status");
-}
-  }
+    try {
+      await axios.put(`http://localhost:4000/api/applications/${id}/status`, {
+        status,
+      });
+      setApplications((prev) =>
+        prev.map((app) => (app._id === id ? { ...app, status } : app))
+      );
+      toast.success(`Application ${status}`);
+    } catch (error) {
+      console.error("Error updating status:", error);
+      toast.error("Failed to update status");
+    }
+  };
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
@@ -138,9 +139,6 @@ const Application = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
-                        {/* <button className="bg-blue-500 text-white px-3 py-1 rounded">
-                          View
-                        </button> */}
                         <button
                           onClick={() =>
                             handleStatusChange(app._id, "Accepted")

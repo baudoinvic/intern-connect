@@ -38,7 +38,7 @@ const Application = () => {
       path: "/company/application",
     },
     {
-      name: "Pending Approvals",
+      name: "Application Status",
       icon: <Users size={20} />,
       path: "/company/pending",
     },
@@ -74,7 +74,7 @@ const Application = () => {
       <div className="flex-1 overflow-auto pt-16 lg:pt-0 pl-4 pr-4 md:p-8 lg:pl-64">
         <div className="p-4 md:p-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-            Applications Received
+            Applications Status
           </h2>
 
           {/* Applications Table */}

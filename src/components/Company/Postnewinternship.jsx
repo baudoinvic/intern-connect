@@ -13,7 +13,7 @@ const Postnewinternship = () => {
     duration: "",
     deadline: "",
     company: "",
-    institutionName: "", 
+    // institutionName: "", 
     fieldOfStudy: "", 
   });
 
@@ -35,7 +35,7 @@ const Postnewinternship = () => {
       !formData.duration ||
       !formData.deadline ||
       !formData.company ||
-      !formData.institutionName || // Check new field
+      // !formData.institutionName ||
       !formData.fieldOfStudy // Check new field
     ) {
       toast.error("Please fill in all required fields.");
@@ -69,7 +69,7 @@ const Postnewinternship = () => {
           duration: "",
           deadline: "",
           company: "",
-          institutionName: "", // Reset new field
+          // institutionName: "", 
           fieldOfStudy: "", // Reset new field
         });
          setTimeout(() => {
@@ -183,7 +183,7 @@ const Postnewinternship = () => {
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             />
           </div>
-
+{/* 
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Institution Name
@@ -196,7 +196,7 @@ const Postnewinternship = () => {
               placeholder="e.g., Kigali University"
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
