@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
   LogOut,
@@ -10,10 +11,41 @@ import {
   Users,
   Settings,
 } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Dash() {
+
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+
+
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) {
+            console.error("No token found");
+            console.log("response", response);
+            return;
+          }
+
+          const response = await axios.get("http://localhost:4000/api/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          setUser(response.data);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      };
+
+      fetchUser();
+    }, []);
 
   const menuItems = [
     {
@@ -84,7 +116,6 @@ function Dash() {
           </button>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
         {/* Header */}
@@ -102,11 +133,11 @@ function Dash() {
               Company Dashboard
             </h1>
 
-             <Link to="/internship">
-                          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                            Post New Internship
-                          </button>
-                        </Link>
+            <Link to="/internship">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                Post New Internship
+              </button>
+            </Link>
           </div>
         </header>
 
@@ -229,6 +260,7 @@ function Dash() {
           </div>
         </main>
       </div>
+      <ToastContainer position="top-right" />
     </div>
   );
 }

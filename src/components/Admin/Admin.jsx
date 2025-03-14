@@ -269,7 +269,7 @@ const Admin = () => {
               <span className="ml-3">Logout</span>
             </button>
           </div>
-          <ToastContainer />
+       
         </nav>
       </div>
 
@@ -314,6 +314,7 @@ const Admin = () => {
           <RevenueChart />
         </div>
       </div>
+       <ToastContainer position="top-right" />
     </div>
   );
 }

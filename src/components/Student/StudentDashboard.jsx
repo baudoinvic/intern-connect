@@ -1,5 +1,4 @@
 
-
 import {
     Bell,
     Briefcase,
@@ -53,13 +52,6 @@ function StudentDashboard() {
 
        fetchUser();
      }, []);
-
-
-
-  const studentInfo = {
-    name: "William",
-    image: profileImage
-  };
 
   const menuItems = [
     { name: "Internship Listings", icon: <Briefcase size={20} />, path: "/student/listings" },
@@ -146,10 +138,6 @@ function StudentDashboard() {
       toast.error("Logout failed. Please try again.");
     }
   };
-
-
-
-
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -165,7 +153,6 @@ function StudentDashboard() {
           {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-
       {/* Sidebar */}
       <div
         className={`
@@ -179,11 +166,9 @@ function StudentDashboard() {
         {/* Profile Section */}
         <div className="p-6 border-b hidden md:block">
           <div className="flex items-center space-x-4">
-         
             <div>
               <p className="text-sm text-gray-500">Student</p>
               <div>
-              
                 <p>{user ? user.email : "Loading..."}</p>
               </div>
             </div>
@@ -223,7 +208,6 @@ function StudentDashboard() {
           </div>
         </nav>
       </div>
-
       {/* Overlay for mobile sidebar */}
       {isSidebarOpen && (
         <div
@@ -231,7 +215,6 @@ function StudentDashboard() {
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
-
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <div className="p-4 md:p-8">
@@ -311,8 +294,11 @@ function StudentDashboard() {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" />
     </div>
   );
 }
 
 export default StudentDashboard;
+
+
