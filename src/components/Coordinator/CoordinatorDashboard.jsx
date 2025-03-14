@@ -244,7 +244,6 @@ function CoordinatorDashboard() {
               <LogOut size={20} />
               <span className="ml-3">Logout</span>
             </button>
-            <ToastContainer />
           </div>
         </nav>
       </div>
@@ -356,6 +355,7 @@ function CoordinatorDashboard() {
           </div>
         </div>
       </div>
+       <ToastContainer position="top-right" />
     </div>
   );
 }
