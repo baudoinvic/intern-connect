@@ -1,10 +1,8 @@
 
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Bell, Briefcase, FileText, LayoutDashboard } from "lucide-react";
-
 
 function CurrentInternship() {
   const navigate = useNavigate();
