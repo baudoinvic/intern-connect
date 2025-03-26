@@ -319,7 +319,7 @@ function CompaniesDashboard() {
           </div>
         </main>
       </div>
-         <ToastContainer position="top-right" />
+      <ToastContainer position="top-right" />
     </div>
   );
 }

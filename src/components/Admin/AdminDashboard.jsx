@@ -61,7 +61,7 @@ function AdminDashboard() {
       color: "bg-purple-500",
     },
     {
-      title: "Subscribers",
+      title: "Active Companies",
       count: "432",
       icon: <CreditCard size={24} />,
       color: "bg-orange-500",
@@ -109,7 +109,7 @@ function AdminDashboard() {
               } transition-colors duration-200`}
               onClick={() => {
                 setSidebarOpen(false);
-                setActivePage(item.path); // Update active menu item
+                setActivePage(item.path); 
               }}
             >
               <div className="flex items-center">

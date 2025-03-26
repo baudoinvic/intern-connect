@@ -151,28 +151,28 @@ const Admin = () => {
       const statsCards = [
         {
           title: "Total Users",
-          count: users.length, 
+          count: users.length,
           icon: <Users size={24} />,
           color: "bg-blue-500",
         },
         {
           title: "Institutions",
-          count: institutions.length, 
+          count: institutions.length,
           icon: <Building2 size={24} />,
           color: "bg-green-500",
         },
         {
           title: "Active Internships",
-          count: internships.length, 
+          count: internships.length,
           icon: <Briefcase size={24} />,
           color: "bg-purple-500",
         },
-          {
-            title: "Subscribers",
-            count: "12",
-            icon: <CreditCard size={24} />,
-            color: "bg-orange-500",
-          },
+        {
+          title: "Active Companies",
+          count: "12",
+          icon: <CreditCard size={24} />,
+          color: "bg-orange-500",
+        },
       ];
 
     
