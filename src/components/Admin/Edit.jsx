@@ -49,9 +49,8 @@ const Edit = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("User ID:", userId);
 
-      let token = localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     const data = {
       firstname: firstname,
       lastname: lastname,
@@ -86,6 +85,9 @@ const Edit = () => {
         setIsLoading(false);
       });
   };
+
+
+  
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
